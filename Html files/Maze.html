@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3D Maze Screensaver</title>
+<style>
+  body {
+    margin: 0;
+    overflow: hidden;
+    background: black;
+  }
+  canvas {
+    display: block;
+  }
+</style>
+<link rel="icon" type="image/png" href="eggyd.png">
+</head>
+<body>
+
+<canvas id="maze"></canvas>
+
+<script>
+const canvas = document.getElementById("maze");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const map = [
+  [1,1,1,1,1,1,1,1],
+  [1,0,0,0,0,0,0,1],
+  [1,0,1,0,1,1,0,1],
+  [1,0,1,0,0,0,0,1],
+  [1,0,0,0,1,0,1,1],
+  [1,0,1,0,0,0,0,1],
+  [1,0,0,0,1,0,0,1],
+  [1,1,1,1,1,1,1,1],
+];
+
+// fake texture pattern
+function getWallColor(dist) {
+  let shade = Math.max(0, 255 - dist * 40);
+  return `rgb(0, ${shade}, 0)`;
+}
+
+let posX = 3.5, posY = 3.5;
+let dir = 0;
+
+// floating orbs
+let orbs = [
+  {x:2.5,y:2.5},
+  {x:5.5,y:5.5},
+  {x:3.5,y:6.5}
+];
+
+function castRays() {
+  for (let x = 0; x < canvas.width; x++) {
+    let rayAngle = (dir - 0.6) + (x / canvas.width) * 1.2;
+    let rayX = Math.cos(rayAngle);
+    let rayY = Math.sin(rayAngle);
+
+    let distance = 0;
+    let hit = false;
+
+    while (!hit && distance < 20) {
+      distance += 0.05;
+      let testX = Math.floor(posX + rayX * distance);
+      let testY = Math.floor(posY + rayY * distance);
+
+      if (map[testY] && map[testY][testX] === 1) {
+        hit = true;
+      }
+    }
+
+    let wallHeight = canvas.height / distance;
+
+    ctx.fillStyle = getWallColor(distance);
+    ctx.fillRect(x, (canvas.height - wallHeight) / 2, 1, wallHeight);
+  }
+}
+
+function drawOrbs() {
+  for (let orb of orbs) {
+    let dx = orb.x - posX;
+    let dy = orb.y - posY;
+
+    let dist = Math.sqrt(dx*dx + dy*dy);
+    let angle = Math.atan2(dy, dx) - dir;
+
+    if (Math.abs(angle) < 0.6) {
+      let size = canvas.height / dist;
+      let x = (angle + 0.6) / 1.2 * canvas.width;
+
+      let gradient = ctx.createRadialGradient(x, canvas.height/2, 0, x, canvas.height/2, size/2);
+      gradient.addColorStop(0, "white");
+      gradient.addColorStop(1, "gray");
+
+      ctx.fillStyle = gradient;
+      ctx.beginPath();
+      ctx.arc(x, canvas.height/2, size/4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+function move() {
+  let speed = 0.025;
+
+  let newX = posX + Math.cos(dir) * speed;
+  let newY = posY + Math.sin(dir) * speed;
+
+  if (map[Math.floor(newY)][Math.floor(newX)] === 0) {
+    posX = newX;
+    posY = newY;
+  } else {
+    dir += Math.random() * 2;
+  }
+
+  dir += (Math.random() - 0.5) * 0.03;
+}
+
+function drawCRT() {
+  ctx.fillStyle = "rgba(0,0,0,0.15)";
+  for (let y = 0; y < canvas.height; y += 2) {
+    ctx.fillRect(0, y, canvas.width, 1);
+  }
+}
+
+function loop() {
+  ctx.fillStyle = "black";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  move();
+  castRays();
+  drawOrbs();
+  drawCRT();
+
+  requestAnimationFrame(loop);
+}
+
+loop();
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Pringle Research Database</title>
+
+<style>
+
+body{
+  background:url("pri.jpg");
+  color:#00ff00;
+  font-family:"Comic Sans MS";
+  margin:0;
+}
+
+/* top junk */
+
+#top-banner{
+  background:red;
+  color:yellow;
+
+  text-align:center;
+
+  font-size:32px;
+  font-weight:bold;
+
+  padding:10px;
+
+  border-bottom:5px solid yellow;
+}
+
+#under-construction{
+  background:black;
+  color:orange;
+
+  text-align:center;
+
+  font-size:20px;
+
+  padding:5px;
+
+  animation:flash 0.7s infinite;
+}
+
+@keyframes flash{
+  50%{
+    color:red;
+  }
+}
+
+/* main archive */
+
+#main-box{
+
+  width:800px;
+
+  margin:20px auto;
+
+  background:rgba(0,0,0,0.85);
+
+  border:6px ridge silver;
+
+  padding:20px;
+
+  box-shadow:
+    0 0 20px lime;
+}
+
+h1{
+  text-align:center;
+
+  color:yellow;
+
+  text-shadow:
+    2px 2px red,
+    4px 4px blue;
+}
+
+#warning{
+
+  background:#330000;
+
+  border:3px solid red;
+
+  color:white;
+
+  padding:10px;
+
+  margin-bottom:20px;
+
+  text-align:center;
+}
+
+table{
+
+  width:100%;
+
+  border-collapse:collapse;
+
+  background:white;
+
+  color:black;
+}
+
+th{
+
+  background:yellow;
+
+  color:black;
+}
+
+td,th{
+
+  border:1px solid black;
+
+  padding:6px;
+}
+
+#research-log{
+
+  margin-top:20px;
+
+  background:black;
+
+  border:2px dashed lime;
+
+  padding:10px;
+}
+
+#counter{
+
+  position:fixed;
+
+  top:10px;
+
+  right:10px;
+
+  background:black;
+
+  color:lime;
+
+  border:2px solid lime;
+
+  padding:6px;
+
+  z-index:9999;
+}
+
+#stamp{
+
+  position:fixed;
+
+  bottom:20px;
+
+  left:20px;
+
+  transform:rotate(-12deg);
+
+  font-size:40px;
+
+  color:red;
+
+  border:4px solid red;
+
+  padding:10px;
+
+  opacity:0.8;
+}
+
+#status-box{
+
+  background:#111;
+
+  border:2px solid cyan;
+
+  color:cyan;
+
+  padding:10px;
+
+  margin-bottom:15px;
+
+  text-align:center;
+}
+
+#can-image{
+
+  display:block;
+
+  margin:auto;
+
+  width:250px;
+}
+
+#classified{
+
+  color:red;
+
+  font-size:22px;
+
+  text-align:center;
+
+  margin-top:10px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="counter">
+Visitor #000042
+</div>
+
+<div id="top-banner">
+OFFICIAL PRINGLE RESEARCH ARCHIVE
+</div>
+
+<div id="under-construction">
+🚧 DATABASE CURRENTLY UNSTABLE 🚧
+</div>
+
+<div id="main-box">
+
+<h1>Pringle Database v0.1</h1>
+
+<div id="status-box">
+Current Archive Status:
+OPERATIONAL BUT CONCERNING
+</div>
+
+<div id="warning">
+WARNING: Archive staff have lost control of several flavors.
+</div>
+
+<img id="can-image" src="45e.png">
+
+<div id="classified">
+CLASSIFIED SNACK MATERIAL
+</div>
+
+<hr>
+
+<table>
+
+<tr>
+<th>ID</th>
+<th>Flavor</th>
+<th>Status</th>
+<th>Threat Level</th>
+</tr>
+
+<tr>
+<td>001</td>
+<td>Original</td>
+<td>Contained</td>
+<td>Low</td>
+</tr>
+
+<tr>
+<td>002</td>
+<td>Sour Cream & Onion</td>
+<td>Under Observation</td>
+<td>Moderate</td>
+</tr>
+
+<tr>
+<td>003</td>
+<td>Mystery Tube</td>
+<td>Missing</td>
+<td>Bread</td>
+</tr>
+
+</table>
+
+<div id="research-log">
+
+<h2>Research Notes</h2>
+
+<ul>
+<li>Can #003 escaped containment.</li>
+<li>No explanation currently available.</li>
+<li>Several witnesses reported hearing crunching.</li>
+<li>Bart reaction team notified.</li>
+<li>Tapir security monitoring situation.</li>
+</ul>
+
+</div>
+
+</div>
+
+<div id="stamp">
+REJECTED BY SCIENCE
+</div>
+
+<script>
+
+const statuses = [
+
+"Containment Stable",
+"Crunch Levels Rising",
+"Suspicious Flavor Activity",
+"Archive Stable",
+"Crunch Event Detected",
+"Tapir Approved",
+"Pringle Missing",
+"Research Team Confused"
+
+];
+
+setInterval(()=>{
+
+document.getElementById("status-box").innerHTML =
+"Current Archive Status:<br>" +
+statuses[Math.floor(Math.random()*statuses.length)];
+
+},4000);
+
+</script>
+
+</body>
+</html>

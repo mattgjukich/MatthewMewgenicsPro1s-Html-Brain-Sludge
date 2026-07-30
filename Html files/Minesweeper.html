@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Minesweeper</title>
+
+<style>
+body {
+  margin: 0;
+  background: #2e3436;
+  font-family: sans-serif;
+}
+
+/* WINDOW */
+.window {
+  width: 420px;
+  position: absolute;
+  top: 80px;
+  left: 100px;
+  background: #3b3f41;
+  border: 1px solid #1e1e1e;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* TITLEBAR */
+.titlebar {
+  background: #202324;
+  color: #ddd;
+  padding: 6px 10px;
+  cursor: move;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* BUTTONS */
+.win-buttons { display: flex; gap: 6px; }
+.win-btn { width: 12px; height: 12px; border-radius: 50%; }
+.close { background: #ff5f56; }
+.min { background: #ffbd2e; }
+.max { background: #27c93f; }
+
+/* CONTENT */
+.content { padding: 10px; }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(10, 36px);
+  gap: 4px;
+  justify-content: center;
+}
+
+.cell {
+  width: 36px;
+  height: 36px;
+  background: #555;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  color: white;
+  font-weight: bold;
+}
+
+.cell:hover { background: #666; }
+.revealed { background: #222; }
+.mine { background: red; }
+.flag { color: yellow; }
+
+.status {
+  margin-top: 8px;
+  color: #ccc;
+  font-size: 13px;
+}
+</style>
+<link rel="icon" type="image/png" href="eggyd.png">
+</head>
+
+<body>
+
+<div class="window" id="window">
+
+  <div class="titlebar" id="titlebar">
+    <span>Minesweeper</span>
+    <div class="win-buttons">
+      <div class="win-btn min"></div>
+      <div class="win-btn max"></div>
+      <div class="win-btn close" id="closeBtn"></div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div id="status">Mines: 15</div>
+    <div class="grid" id="grid"></div>
+    <div class="status" id="msg">Click a tile to begin.</div>
+  </div>
+
+</div>
+
+<script>
+
+/* DRAG WINDOW */
+const win = document.getElementById("window");
+const title = document.getElementById("titlebar");
+
+let dragging=false, offX, offY;
+
+title.onmousedown = e => {
+  dragging=true;
+  offX = e.clientX - win.offsetLeft;
+  offY = e.clientY - win.offsetTop;
+};
+
+document.onmousemove = e => {
+  if (!dragging) return;
+  win.style.left = (e.clientX - offX) + "px";
+  win.style.top = (e.clientY - offY) + "px";
+};
+
+document.onmouseup = ()=> dragging=false;
+
+/* CLOSE BUTTON TROLL */
+document.getElementById("closeBtn").onclick = ()=>{
+  alert("no.");
+};
+
+/* GAME */
+const size = 10;
+const mineCount = 15;
+
+let gridEl = document.getElementById("grid");
+let status = document.getElementById("status");
+let msg = document.getElementById("msg");
+
+let cells = [];
+let mines = [];
+let revealed = new Set();
+let flagged = new Set();
+let firstClick = true;
+
+/* CREATE GRID */
+for (let i=0;i<size*size;i++){
+  let c = document.createElement("div");
+  c.className="cell";
+  gridEl.appendChild(c);
+  cells.push(c);
+
+  c.addEventListener("click",()=>leftClick(i));
+  c.addEventListener("contextmenu",(e)=>{
+    e.preventDefault();
+    rightClick(i);
+  });
+}
+
+/* PLACE MINES (after first click) */
+function placeMines(safeIndex){
+  while (mines.length < mineCount){
+    let i = Math.floor(Math.random()*cells.length);
+    if (i!==safeIndex && !mines.includes(i)) mines.push(i);
+  }
+}
+
+/* NEIGHBORS */
+function neighbors(i){
+  let x=i%size, y=Math.floor(i/size);
+  let n=[];
+  for(let dx=-1;dx<=1;dx++){
+    for(let dy=-1;dy<=1;dy++){
+      if(dx===0&&dy===0)continue;
+      let nx=x+dx, ny=y+dy;
+      if(nx>=0&&ny>=0&&nx<size&&ny<size)
+        n.push(ny*size+nx);
+    }
+  }
+  return n;
+}
+
+/* COUNT */
+function count(i){
+  return neighbors(i).filter(n=>mines.includes(n)).length;
+}
+
+/* REVEAL (flood fill) */
+function reveal(i){
+  if (revealed.has(i) || flagged.has(i)) return;
+
+  revealed.add(i);
+  let cell = cells[i];
+  cell.classList.add("revealed");
+
+  let c = count(i);
+  if (c>0){
+    cell.textContent = c;
+  } else {
+    neighbors(i).forEach(reveal);
+  }
+}
+
+/* LEFT CLICK */
+function leftClick(i){
+
+  if (flagged.has(i)) return;
+
+  if (firstClick){
+    placeMines(i);
+    firstClick=false;
+  }
+
+  if (mines.includes(i)){
+    cells[i].classList.add("mine");
+    cells[i].textContent="💣";
+    msg.textContent="you died lol";
+    revealAll();
+    return;
+  }
+
+  reveal(i);
+  checkWin();
+}
+
+/* RIGHT CLICK (flag) */
+function rightClick(i){
+  if (revealed.has(i)) return;
+
+  let cell=cells[i];
+
+  if (flagged.has(i)){
+    flagged.delete(i);
+    cell.textContent="";
+  } else {
+    flagged.add(i);
+    cell.textContent="🚩";
+  }
+
+  status.textContent = "Mines: " + (mineCount - flagged.size);
+}
+
+/* REVEAL ALL */
+function revealAll(){
+  mines.forEach(i=>{
+    cells[i].classList.add("mine");
+    cells[i].textContent="💣";
+  });
+}
+
+/* WIN CHECK */
+function checkWin(){
+  if (revealed.size === size*size - mineCount){
+    msg.textContent="you actually won??";
+  }
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2144 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KrackerkidsAwfulOddities</title>
+
+<style>
+body{
+  background-image:url("ice.png");
+  background-repeat:repeat;
+}
+
+/*  BREATHING EFFECT */
+@keyframes labPulse {
+  0% { filter: brightness(100%) contrast(100%); }
+  100% { filter: brightness(85%) contrast(120%); }
+}
+
+.main{
+  width:900px;
+  margin:auto;
+  padding:40px;
+
+  background:rgba(255,255,255,0.92);
+
+  border:4px ridge #c0c0c0;
+  text-align:center;
+}
+
+ul {
+  list-style-position: inside;
+  padding: 0;
+}
+
+.maze-container {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* CHAOS BUTTON AREA */
+.chaos-area {
+  margin-top: 15px;
+}
+
+/* SHAKE */
+@keyframes shake {
+  0% { transform: translate(0,0); }
+  25% { transform: translate(4px,-4px); }
+  50% { transform: translate(-4px,4px); }
+  75% { transform: translate(4px,4px); }
+  100% { transform: translate(0,0); }
+}
+.shake { animation: shake 0.3s; }
+
+/* POPUPS */
+.popup {
+  position: fixed;
+  width: 220px;
+  background: #c0c0c0;
+  border: 2px solid;
+  border-color: white #404040 #404040 white;
+  font-family: "MS Sans Serif", Arial;
+  font-size: 12px;
+  z-index: 99999999999999;
+  box-shadow: 2px 2px 0 #000;
+}
+.popup-header {
+  background: navy;
+  color: white;
+  padding: 2px 5px;
+  display: flex;
+  justify-content: space-between;
+}
+.popup-body {
+  padding: 8px;
+}
+.close-btn { cursor: pointer; }
+
+button.chaos-btn {
+  background: #c0c0c0;
+  border: 2px solid white #404040 #404040 white;
+  font-family: "MS Sans Serif";
+  font-size: 12px;
+  cursor: pointer;
+  padding: 6px 10px;
+  box-shadow: 1px 1px 0 #808080;
+  position: absolute;
+}
+
+#watcher {
+  position: fixed;
+  width: 80px;
+  display: none;
+  z-index: 9999;
+  cursor: pointer;
+
+  transform: translate(-50%, -50%);
+}
+
+.stamp-link {
+  display: inline-block;
+  transition: 0.15s;
+}
+
+.stamp-link img {
+  image-rendering: pixelated;
+  cursor: pointer;
+  max-width: 220px;
+}
+
+#krack-title{
+  font-family: "Comic Sans MS", cursive;
+  font-size: 42px;
+  position: relative;
+  display: inline-block;
+
+  animation:
+    titleBreath 3s ease-in-out infinite,
+    titleHue 8s linear infinite;
+
+  text-shadow:
+    -2px 0 red,
+    2px 0 cyan,
+    0 0 10px rgba(255,255,255,0.5);
+}
+
+/*  breathing */
+@keyframes titleBreath{
+  0%{
+    transform: scale(1) rotate(-1deg);
+  }
+
+  50%{
+    transform: scale(1.04) rotate(1deg);
+  }
+
+  100%{
+    transform: scale(1) rotate(-1deg);
+  }
+}
+
+/*  chromatic weirdness */
+@keyframes titleHue{
+  0%{
+    filter:hue-rotate(0deg);
+  }
+
+  100%{
+    filter:hue-rotate(30deg);
+  }
+}
+
+
+.weird-stamp img{
+  transition: 0.12s;
+}
+
+/* corrupted hover */
+.weird-stamp:hover img{
+
+  transform:
+    scaleX(1.15)
+    scaleY(0.85)
+    skewX(8deg)
+    rotate(-1deg);
+
+  filter:
+    contrast(180%)
+    saturate(250%)
+    hue-rotate(40deg);
+
+}
+
+/*  MII HIDING BEHIND BREAD */
+#mii-peek{
+
+  position:absolute;
+
+  left:26%;
+  top:260px;
+
+  width:430px;
+
+  z-index:-1;
+
+  pointer-events:none;
+
+  transition:
+    transform 0.12s linear;
+
+  filter:
+    drop-shadow(0 0 25px rgba(0,0,0,0.8));
+
+  animation:
+    miiFloat 4s ease-in-out infinite;
+
+  transform:
+    rotate(-34deg);
+
+  transform-origin:
+    bottom center;
+
+}
+
+/*  BIG INVISIBLE CLICK ZONE */
+#mii-hitbox{
+
+  position:absolute;
+
+  left:20%;
+  top:180px;
+
+  width:420px;
+  height:420px;
+
+  z-index:9999;
+
+  cursor:pointer;
+
+  background:red;
+
+  opacity:0;
+
+  pointer-events:none;
+
+}
+
+/*  weird tomodachi distortion */
+
+.mii-stamp img{
+
+  transition:
+    transform 0.08s linear,
+    filter 0.15s linear;
+
+}
+
+/* hover effect */
+
+.mii-stamp:hover img{
+
+  animation:
+    miiFreakout 0.18s infinite;
+
+  filter:
+    saturate(180%)
+    contrast(140%)
+    brightness(1.1);
+
+}
+
+/* cursed wobble */
+
+@keyframes miiFreakout{
+
+  0%{
+
+    transform:
+      skewX(0deg)
+      scale(1);
+
+  }
+
+  25%{
+
+    transform:
+      skewX(8deg)
+      scaleX(1.08)
+      translateY(-2px);
+
+  }
+
+  50%{
+
+    transform:
+      skewX(-10deg)
+      scaleY(0.92)
+      rotate(-1deg);
+
+  }
+
+  75%{
+
+    transform:
+      skewX(5deg)
+      translateX(2px);
+
+  }
+
+  100%{
+
+    transform:
+      skewX(0deg)
+      scale(1);
+
+  }
+
+}
+
+#krackPlayer {
+  position: absolute;
+  top: 50px;
+  right: 760px;
+  width: 320px;
+  z-index: 9999;
+  background: #ece9d8;
+  border: 1px solid #0054e3;
+  box-shadow: 3px 3px 10px rgba(0,0,0,0.5);
+}
+
+#playerHeader {
+  cursor: move;
+  user-select: none;
+  background: linear-gradient(to bottom, #0a246a, #3a6ea5);
+  color: white;
+  padding: 6px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+#trackInfo {
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+#drawer {
+  display: none;
+  margin-top: 8px;
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid white;
+  background: #A89C99;
+}
+
+.trackItem {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.trackItem:hover {
+  background: #333;
+}
+
+.activeTrack {
+  background: #111;
+  color: lime;
+  text-shadow: 0 0 8px lime;
+  border-left: 3px solid lime;
+}
+
+#albumCover {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  display: block;
+  margin: 8px auto;
+  border: 2px solid white;
+}
+
+#seekBar {
+  width: 100%;
+}
+
+#timeDisplay {
+  font-family: monospace;
+  margin-top: 4px;
+}
+
+#floating-eye {
+  position: absolute;
+  width: 200px;
+  top: 300px;
+  left: 50px;
+  cursor: pointer;
+}
+
+#tape-dog {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  width: 320px;
+  transform: rotate(-5deg);
+}
+
+#cereal-peek{
+  position:absolute;
+  width:120px;
+
+  top:50px;
+  right:760px;
+
+  z-index:-1;
+  opacity:0.85;
+}
+
+#sop-frog{
+  width:150px;
+  transition:0.15s;
+}
+
+#sop-frog:hover{
+  transform:
+    translateY(-15px)
+    rotate(10deg);
+
+  filter:hue-rotate(90deg);
+}
+
+#melo{
+  width:100px;
+  cursor:pointer;
+  transition:0.15s;
+}
+
+#melo:hover{
+
+  transform:
+    scale(1.6)
+    rotate(7deg)
+    skewX(-12deg);
+
+  filter:
+  hue-rotate(25deg)
+  contrast(220%)
+  saturate(250%)
+  drop-shadow(0 0 12px red);
+  
+}
+
+#bartcam{
+  position:absolute;
+
+  bottom:-20px;
+  right:200px;
+
+  width:320px;
+
+  background:white;
+  border:3px solid red;
+
+  z-index:99999;
+
+  box-shadow:0 0 15px red;
+}
+#bart-message{
+  position:absolute;
+  display:none;
+  z-index:2147483647;
+}
+
+#bartcam img{
+  width:100%;
+  display:block;
+}
+
+#bartcam img {
+  width: 100%;
+  display: block;
+  filter: contrast(120%) saturate(140%);
+  cursor: pointer;
+}
+
+#bartcam img:hover {
+  filter: contrast(200%) saturate(200%) hue-rotate(10deg);
+}
+
+#tapirWindow{
+  position:absolute;
+
+  left:20%;
+  top:850px;
+
+  transform:translateX(-50%);
+
+  width:260px;
+
+  background:#c0c0c0;
+
+  border:2px solid;
+  border-color:white #404040 #404040 white;
+
+  box-shadow:2px 2px 0 black;
+
+  z-index:100;
+}
+
+#tapirHeader{
+  background:navy;
+  color:white;
+
+  padding:3px 6px;
+
+  font-family:Tahoma;
+  font-size:12px;
+  font-weight:bold;
+
+  cursor:move;
+}
+
+#tapirBody{
+  padding:6px;
+  text-align:center;
+}
+
+.window{
+  position:absolute;
+  top:520px;
+  right:320px;
+
+  width:320px;
+
+  background:black;
+  border:3px solid lime;
+
+  box-shadow:0 0 12px lime;
+
+  font-family:monospace;
+  color:lime;
+
+  user-select:none;
+}
+
+.window-header{
+  background:lime;
+  color:black;
+
+  padding:4px;
+
+  cursor:grab;
+  font-weight:bold;
+}
+
+.window-body{
+  padding:10px;
+  white-space:pre;
+}
+
+#parental{
+
+    position:absolute;
+
+    bottom:-340px;
+    left:90px;
+
+    width:250px;
+
+    cursor:pointer;
+
+    transition:
+        transform 0.1s,
+        filter 0.1s;
+
+    z-index:500;
+}
+
+#parental:hover{
+
+    animation:
+        ring .15s infinite;
+
+    filter:
+        drop-shadow(0 0 15px lime)
+        brightness(120%);
+}
+
+@keyframes ring{
+
+    0%{
+        transform:rotate(-4deg);
+    }
+
+    50%{
+        transform:rotate(4deg);
+    }
+
+    100%{
+        transform:rotate(-4deg);
+    }
+
+}
+
+</style>
+
+
+
+<link rel="icon" type="image/png" href="eggyd.png">
+
+</head>
+
+<body>
+
+<div id="tapirWindow">
+
+  <div id="tapirHeader">
+    WEBGAURDIAN 2004
+  </div>
+
+  <div id="tapirBody">
+
+   <div class="results" style="width: 200px;background-color: #fff;color: #000;display: block;padding: 10px;border: 1px solid;margin: 0 auto;font-family: 'times';font-size: '15pt';">
+      <p style="margin: 0">This page is protected by a</p>
+      <h1 class="title" style="margin: 0">TAPIR</h1>
+      <img class="image" style="max-width: 160px;border: 1px solid" alt="TAPIR" src="https://i.ibb.co/10FV850/tapir.jpg">
+      <p class="description">Tapirs have changed very little over the past 20 million years.</p>
+      <small>
+        <a href="https://hekate.neocities.org">Want your own? Visit hekate.neocities.org!</a>
+      </small>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="window" id="cowWindow">
+  <div class="window-header">
+    ⟟ ⍙⟟⌰⌰ ⎎⎍☊☍ ⟒⎐⟒⍀⊬⏁⊑⟟⋏☌ ⊬⍜⎍ ⌰⍜⎐⟒ ⎍⋏⏁⟟⌰ ⟟⏁ ⌇⏁⏃⋏⎅⌇ ⏃⋏⎅ ⍙⏃⌰☍⌇ ⏚⊬ ⟟⏁⌇⟒⌰⎎
+  </div>
+
+  <div class="window-body">
+<pre id="cowtext">
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⡀⠀⠀⠀⠀⠀⠄⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠘⡟⠇⠀⠀⠀⠀⢻⡄⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡇⠀⠀⠀⠀⡸⣞⡇⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠃⠀⠀⠀⢀⣧⢿⣽⡀⠀⠀
+⠀⢴⣿⠆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⠀⠀⠀⠀⣼⣞⡿⡞⡁⠀⠀
+⠀⠀⠈⠓⢤⡀⠀⠀⠀⡀⠀⠀⠀⠀⠀⠀⠀⣾⠀⠀⠀⣰⣟⢾⣽⢃⡿⠀⠀
+⠀⠀⠀⠀⠀⠙⢆⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣿⣠⢤⣶⡻⣞⣿⣺⠇⣽⢣⠀
+⢠⣄⡀⠀⠀⠀⠀⠙⢦⡀⠀⠀⠀⠀⣀⣠⣤⣿⣽⣻⢾⣽⣷⣾⣽⠃⢆⡇⠀
+⠈⢻⣿⣶⣄⡀⠀⠀⠀⣉⣳⣴⢶⣞⡿⣽⣞⡷⣯⢿⡽⣞⣿⠟⠋⠁⠈⠀⠀
+⠀⠀⢻⣿⣿⣿⣿⣶⣾⣿⡽⣯⣟⡾⣽⡷⣯⣟⡽⡾⣽⡯⠁⠀⠀⠀⠀⠀⠀
+⠀⠀⠉⢞⣿⣿⢯⡿⣿⣯⣟⣷⣯⢿⣳⣟⡷⣽⣼⣻⣽⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⢾⣿⣿⣯⣽⣾⣿⣾⣗⡿⣯⡷⣯⣟⡷⣞⣼⣿⣀⠀⠀⠀⠀⢀⣠⠀
+⠀⠀⢀⣼⠛⠏⠉⠉⠽⢟⢿⣿⣿⣿⣿⣷⣻⢾⡽⣞⡷⠄⡹⣶⠟⣻⢿⡃⠀
+⠀⠀⣸⣯⠇⠀⠀⠀⠀⠀⠁⣽⣿⣿⣿⣷⣯⣿⣽⣛⡦⠀⠀⢩⠣⣹⢯⡇⠀
+⠀⠀⢈⣿⡃⠁⠀⠀⠀⢀⣬⣾⣟⢿⣻⣿⣿⣟⡾⣽⡳⠄⠎⢳⢈⢯⣟⡆⠀
+⠀⠀⣸⣷⣷⣶⣳⣶⣺⣿⣿⣷⢯⣟⣿⣿⣳⢯⠛⠅⠃⠀⠀⣴⢪⡿⣬⠂⠀
+⠀⠀⢺⡽⣾⡽⣯⣟⣿⡿⣯⣿⣿⣾⢿⣿⠳⢏⣈⢠⠀⠀⣰⢿⡞⣜⣉⠀⠀
+⠀⠀⠘⣽⣳⣟⣳⣟⣾⣽⣿⣿⣿⣿⣿⣦⣜⡻⡽⠆⠃⣴⡟⣯⠗⡣⣭⠀⠀
+⠀⠀⠀⠹⣿⣾⣿⣯⣿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣾⠧⠀⠹⠾⡵⡞⠹⢠⠀⠀
+⠀⠀⠀⠐⠹⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢯⠊⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⣀⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢯⣏⡰⣶⣵⣢⢄⢠⡀⡄⠀⠀
+⠀⠀⡀⠔⠉⠀⠀⢽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣔⣻⢷⣯⡽⣚⣷⣻⡼⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠘⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡟⣽⣞⣷⣻⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+</pre>
+  </div>
+</div>
+
+<img src="tape.png" id="tape-dog">
+
+<img src="eye.png" id="floating-eye">
+
+
+<a href="https://krackerkidsawfuloddities.neocities.org/krackphone"
+   onclick="
+      document.getElementById('phone')
+      .style.display='block';
+      return false;
+   ">
+    <img
+      src="warning.png"
+      id="parental">
+</a>
+
+
+<div id="bartcam">
+
+  <div class="cam-header">
+    LIVE BART REACTION
+  </div>
+
+  <a href="https://www.youtube.com/watch?v=GPP-g1FJiT0" target="_blank">
+    <img src="bert.gif" alt="Bart Feed">
+  </a>
+
+</div>
+
+
+
+<img id="watcher" src="Watcher.png">
+<img id="mii-peek" src="mii.png">
+<div id="mii-hitbox"></div>
+
+<div class="main">
+
+  <h1 id="krack-title">Hey Hey Kids: Welcome to the Krackhouse</h1>
+  <img src="cin.png" id="cereal-peek">
+  <p><strong>This site has not been finished yet</strong></p>
+  <p><strong>I also reccomend turning the view to 90% and turning to fullscreen</strong></p>
+
+  <div id="krackPlayer">
+
+    <div id="playerHeader">KRACKPLAYER 2004</div>
+
+    <div id="trackInfo">Now Playing: ...</div>
+
+    <img id="albumCover" src="" alt="Album Cover">
+
+    <button onclick="toggleDrawer()">📂 Playlist</button>
+
+    <div id="drawer"></div>
+
+    <input id="seekBar" type="range" min="0" max="100" value="0">
+
+    <div id="timeDisplay">0:00 / 0:00</div>
+
+
+  </div>
+
+
+  <!-- MOVE EVERYTHING INSIDE MAIN -->
+
+  <img id="egg" src="/Eggy.gif" height="200" style="cursor:pointer;">
+
+  <p>BucketList:</p>
+  <ul>
+    <li>Stop Gooning :G</li>
+    <li>More Creamy Boys</li>
+    <li>Revivie 12 Big Guys</li>
+    <li>Click the eye</li>
+    <li>Obtain a Flubgut and a sour patch kid</li>
+  </ul>
+
+
+
+<p>Music player controls:</p>
+<p>To start a song open playlist and click a song</p>
+<p>Also if you grab the tapir windows or the music player and it shoots up just
+bring it to where you want it, it shouldnt do it again after</p>
+<div onclick="window.location='crate.html'"> 🐀 </div>
+<img src="sop.png" id="sop-frog">
+<p><small>sop watches.</small></p>
+
+
+<img src="bi.webp" id="bi-blinkie">  <img src="10.gif" id="10-blinkie"> <img src="athf.gif" id="athf-blinkie"> <img src="h20.gif" id="ISAACC-blinkie"> <img src="1111.gif" id="MEEEEEWWWWGENICS!-blinkie"> <img src="glep.gif" id="glep-blinkie"> <img src="j4.gif" id="lemon
+demon-blinkie"> <img src="https://64.media.tumblr.com/5b9cb032c428a9a5856c90fed4530ba0/68fc51410d4c1c6a-2f/s250x400/412e437a86fd07afbfe733a97021ab45886da1b6.gifv"/> <img src="d26.gif" id="html-blinkie"> <img src="b39.gif" id="Gaerf-blinkie"> <img src="as3.gif" id="as-blinkie"> <img src="Rd34.gif" id="pee-blinkie"> <img src="gi.gif" id="isopod-blinkie"> <img src="v4.gif" id="oreo-blinkie"> <img src="sco.webp" id="scout-blinkie">
+
+<img src="https://static.wikia.nocookie.net/athfwiki/images/f/f1/Mooninites.png"> 
+
+<p>Awful Oddities:</p>
+
+
+<div class="maze-container" style="
+display:flex;
+justify-content:center;
+align-items:center;
+gap:18px;
+flex-wrap:wrap;
+">
+
+
+<!--  MAZE STAMP -->
+<a href="Maze.html"
+class="stamp-link"
+onmouseover="startJitter(this)"
+onmouseout="stopJitter(this)">
+
+<img src="Mazeless.jpg">
+
+</a>
+
+<!--  MINESWEEPER STAMP -->
+<a href="Minesweeper.html"
+class="stamp-link"
+onmouseover="this.style.transform='scale(1.05)'"
+onmouseout="this.style.transform='scale(1)'">
+
+<img src="HEllSweEp.png">
+
+</a>
+
+<!-- SCRATCH STAMP -->
+<a href="https://scratch.mit.edu/users/C0MMAND_B10CK/"
+target="_blank"
+class="stamp-link"
+onmouseover="this.style.transform='rotate(-2deg) scale(1.04)'"
+onmouseout="this.style.transform='rotate(0deg) scale(1)'">
+
+<img src="e18.gif">
+
+</a>
+
+<!--  NEOCITIES STAMP -->
+<a href="https://kids1234.neocities.org"
+target="_blank"
+class="stamp-link"
+onmouseover="this.style.transform='rotate(2deg) scale(1.05)'"
+onmouseout="this.style.transform='rotate(0deg) scale(1)'">
+
+<img src="eatpant.png">
+
+</a>
+
+<!-- RAM DOWNLOAD STAMP -->
+<a href="RAM.html"
+class="stamp-link weird-stamp">
+
+<img src="fundo.png">
+
+</a>
+
+<div style="flex-basis:100%; height:0;"></div>
+
+<!-- MII BIO STAMP -->
+<a href="miibio.html"
+class="stamp-link mii-stamp">
+
+<img src="stimp.png">
+
+</a>
+
+<img src="melo.png" id="melo">
+</div>
+
+<iframe width="314" height="321" scrolling="no" src="https://gify.pet/pet/pet.html?name=Filbert&dob=1782093833&gender=m&element=Air&pet=https%3A%2F%2Fkrackerkidsawfuloddities.neocities.org%2Fbanana.png&map=night.gif&background=&tablecolor=black&textcolor=black" frameborder="0"></iframe>
+
+<img src="gun.gif" id="gun"> 
+
+<div id="gun-message">
+  nobody remembers when gun arrived
+</div>
+
+</div>
+
+<div class="chaos-area" id="chaos-area"></div>
+
+
+<div id="popup-container"></div>
+
+<script>
+
+// 🔘 CHAOS BUTTON TEXTS
+const chaosTexts = [
+  "dont click me","stop","why","you again?","this multiplies btw",
+  "uh oh","bad idea","it gets worse","too late",
+  "you've done it now","they are spreading","containment failed"
+];
+
+// 🔘 MULTIPLYING BUTTONS
+function spawnChaosButton(x = null, y = null) {
+  const btn = document.createElement("button");
+  btn.className = "chaos-btn";
+
+  btn.textContent = chaosTexts[Math.floor(Math.random()*chaosTexts.length)];
+
+  const area = document.getElementById("chaos-area");
+  const rect = area.getBoundingClientRect();
+
+  btn.style.left =
+  (x ?? 650 + Math.random()*250 - 125)
+  + "px";
+
+btn.style.top =
+  (y ?? 500 + Math.random()*140 - 70)
+  + "px";
+
+  btn.onclick = () => {
+    btn.textContent = chaosTexts[Math.floor(Math.random()*chaosTexts.length)];
+
+    for (let i = 0; i < 3; i++) {
+      spawnChaosButton(
+        btn.offsetLeft + Math.random()*120 - 60,
+        btn.offsetTop + Math.random()*120 - 60
+      );
+    }
+
+    if (Math.random() < 0.3) createPopup();
+  };
+
+  document.body.appendChild(btn);
+}
+
+setTimeout(() => spawnChaosButton(), 1500);
+
+//  JITTER
+let jitterIntervals = new Map();
+function startJitter(el) {
+  if (jitterIntervals.has(el)) return;
+  const i = setInterval(()=>{
+    el.style.transform = `translate(${Math.random()*4-2}px,${Math.random()*4-2}px)`;
+  },80);
+  jitterIntervals.set(el,i);
+}
+function stopJitter(el){
+  clearInterval(jitterIntervals.get(el));
+  jitterIntervals.delete(el);
+  el.style.transform='translate(0,0)';
+}
+
+//  POPUPS
+const messages = [
+"You are the maze.","Stop clicking things.","This site is unstable",
+"Error: Fun detected.","Windows has encountered a vibe",
+"Do not trust the smiley","Loading... forever",
+"You weren't supposed to see this","Something is watching",
+"Nice try","WHAT IN THE HECK","Count your days..","CLICK THE EYE","I Hate you","Boom Goes the Dynamite!!",
+"Linux has encountered a dust devil","Mac os has encountered a tomato"
+];
+
+function createPopup(){
+  const p=document.createElement("div");
+  p.className="popup";
+  p.style.left=Math.random()*(window.innerWidth-240)+"px";
+  p.style.top=Math.random()*(window.innerHeight-120)+"px";
+  p.innerHTML=`
+  <div class="popup-header">Error
+  <div class="close-btn" onclick="this.parentElement.parentElement.remove()">X</div></div>
+  <div class="popup-body">${messages[Math.floor(Math.random()*messages.length)]}</div>`;
+  document.getElementById("popup-container").appendChild(p);
+}
+setInterval(()=>{createPopup(); if(Math.random()<0.4)createPopup();},5500);
+
+//  EGG
+const egg=document.getElementById("egg");
+let cracked=false;
+
+const cursedStuff=[
+{img:"Gatbooo.jpg",link:"https://cat-bounce.com/"},
+{img:"Long doge.png",link:"https://longdogechallenge.com/"},
+{img:"pointerz.png",link:"https://pointerpointer.com/"},
+{img:"raz.png",link:"https://heeeeeeeey.com/"},
+{img:"SB.gif",link:"https://staggeringbeauty.io/"},
+{img:"thefingerz.jpg",link:"https://thatsthefinger.com/"},
+{img:"Ben.JPG",link:"https://www.omfgdogs.com/"}
+];
+
+egg.addEventListener("click",()=>{
+if(cracked)return;
+egg.classList.add("shake");
+setTimeout(()=>{
+egg.classList.remove("shake");
+egg.src="eggyd.png";
+cracked=true;
+spawnCursedPopup();
+},300);
+});
+
+function spawnCursedPopup(){
+  const p = document.createElement("div");
+  p.className = "popup";
+
+  const c = cursedStuff[Math.floor(Math.random()*cursedStuff.length)];
+
+  const img = new Image();
+  img.src = c.img;
+
+  img.onload = () => {
+    const maxW = 400;
+    const maxH = 300;
+
+    let w = img.width;
+    let h = img.height;
+
+    const scale = Math.min(maxW / w, maxH / h, 1);
+    w *= scale;
+    h *= scale;
+
+    p.style.width = w + "px";
+    p.style.height = (h + 20) + "px";
+
+    p.style.left = (window.innerWidth/2 - w/2) + "px";
+    p.style.top = (window.innerHeight/2 - h/2) + "px";
+
+    p.innerHTML = `
+      <div class="popup-header">
+        OH GOD
+        <div class="close-btn" onclick="this.parentElement.parentElement.remove()">X</div>
+      </div>
+
+      <a href="${c.link}" target="_blank" style="display:block;">
+        <img src="${c.img}" style="width:${w}px;height:${h}px;display:block;">
+      </a>
+    `;
+
+    document.getElementById("popup-container").appendChild(p);
+  };
+}
+
+// 👁️ WATCHER
+const watcher=document.getElementById("watcher");
+let watcherActive=false;
+
+setInterval(()=>{
+if(!watcherActive&&Math.random()<0.4){
+watcher.style.display="block";
+watcherActive=true;
+}},20000);
+
+let isClicking = false;
+
+document.addEventListener("mousedown", () => {
+  isClicking = true;
+});
+
+document.addEventListener("mouseup", () => {
+  isClicking = false;
+});
+
+document.addEventListener("mousemove",(e)=>{
+  if(!watcherActive || isClicking) return;
+
+  watcher.style.left = e.clientX + "px";
+  watcher.style.top  = e.clientY + "px";
+});
+
+watcher.addEventListener("click",()=>{
+watcher.style.display="none";
+watcherActive=false;
+document.body.style.filter="invert(1)";
+setTimeout(()=>document.body.style.filter="none",120);
+for(let i=0;i<3;i++)setTimeout(createPopup,i*200);
+});
+
+const online=document.createElement("div");
+
+online.style.position="fixed";
+online.style.top="5px";
+online.style.right="10px";
+online.style.color="lime";
+online.style.fontFamily="monospace";
+
+document.body.appendChild(online);
+
+setInterval(()=>{
+
+  online.textContent=
+    Math.floor(Math.random()*9999) +
+    " weird little guys online";
+
+},2000);
+
+
+const achievements=[
+"Achievement Unlocked: Egg toucher",
+"Achievement Unlocked: Bread survivor",
+"Achievement Unlocked: Professional clicker",
+"Achievement Unlocked: Fish witness",
+"Achievement Unlocked: Why are you here?",
+"Achievement Unlocked: GO OUTSIDE",
+"Achievement Unlocked: Cheese",
+"Achievement Unlocked: Golden God!",
+"Achievement Unlocked: You Jelly?",
+"Achievement Unlocked: Deja Vu"
+];
+
+function fakeAchievement(){
+
+  const a=document.createElement("div");
+
+  a.textContent=
+    achievements[Math.floor(Math.random()*achievements.length)];
+
+  a.style.position="fixed";
+  a.style.bottom="20px";
+  a.style.right="20px";
+  a.style.background="black";
+  a.style.color="gold";
+  a.style.padding="10px";
+  a.style.zIndex="99999";
+
+  document.body.appendChild(a);
+
+  setTimeout(()=>a.remove(),3000);
+}
+
+setInterval(()=>{
+  if(Math.random()<0.3) fakeAchievement();
+},15000);
+
+
+const flip=document.createElement("button");
+
+flip.textContent="flip gravity";
+
+flip.style.position="fixed";
+flip.style.top="5%";
+flip.style.left="95%";
+
+document.body.appendChild(flip);
+
+let flipped=false;
+
+flip.onclick=()=>{
+
+  flipped=!flipped;
+
+  document.body.style.transform=
+    flipped ? "rotate(180deg)" : "rotate(0deg)";
+
+};
+
+
+const radio=[
+  "[static]",
+  "broadcast lost",
+  "uhhhh",
+  "somebody feed the fish",
+  "HELLO?",
+  "krackhouse radio",
+  "currently loafing"
+];
+
+setInterval(()=>{
+
+  const r=document.createElement("div");
+
+  r.textContent=
+    radio[Math.floor(Math.random()*radio.length)];
+
+  r.style.position="fixed";
+  r.style.top=Math.random()*window.innerHeight+"px";
+  r.style.left="10px";
+  r.style.fontFamily="monospace";
+  r.style.opacity="0.5";
+  r.style.pointerEvents="none";
+  r.style.zIndex="99999";
+
+  document.body.appendChild(r);
+
+  setTimeout(()=>r.remove(),2500);
+
+},6000);
+
+// 🧍 MII PARALLAX FOLLOW
+const mii=document.getElementById("mii-peek");
+
+document.addEventListener("mousemove",(e)=>{
+
+  const x =
+    (e.clientX/window.innerWidth - 0.5) * 10;
+
+  const y =
+    (e.clientY/window.innerHeight - 0.5) * 6;
+
+  mii.style.transform=
+    `translate(${x}px, ${y}px)
+     rotate(-34deg)`;
+
+});
+
+
+const facts=[
+  "fish dont pay taxes",
+  "bread fears you",
+  "RAM.html contains 14 hammers",
+  "your mouse has been promoted",
+  "there are 7 invisible guys here",
+  "Cats are a Friend :D",
+  "You are worshipping a sun god!",
+  "Robots See you, Robots Smell you, Robots HATE you!",
+  "Homer dropped his donut",
+  "Broccoli Bob Is The Moon God"
+];
+
+setInterval(()=>{
+
+  const f=document.createElement("div");
+
+  f.textContent =
+    "FACT: " +
+    facts[Math.floor(Math.random()*facts.length)];
+
+  f.style.position="fixed";
+  f.style.right="10px";
+  f.style.bottom=Math.random()*300+"px";
+  f.style.background="yellow";
+  f.style.padding="5px";
+  f.style.fontFamily="comic sans ms";
+  f.style.zIndex="99999";
+
+  document.body.appendChild(f);
+
+  setTimeout(()=>f.remove(),4000);
+
+},12000);
+
+// ⭐ FAKE LEVEL UP SYSTEM
+
+let krackLevel = 1;
+let krackXP = 0;
+
+// silly rank names
+const ranks = [
+  "Crust Goblin",
+  "Bread Apprentice",
+  "Certified Weirdo",
+  "Krack Disciple",
+  "Milk Drinker",
+  "Soup Wizard",
+  "Professional Loafer",
+  "Cream Entity",
+  "Radio Beast",
+  "Ultimate Little Guy"
+];
+
+// gain XP from random clicks
+document.addEventListener("click", () => {
+
+  // random xp
+  krackXP += Math.floor(Math.random() * 15) + 5;
+
+  // random level threshold
+  const needed = krackLevel * 100;
+
+  if (krackXP >= needed) {
+
+    krackXP = 0;
+    krackLevel++;
+
+    showLevelUp();
+
+  }
+
+});
+
+// 🎉 LEVEL UP POPUP
+function showLevelUp() {
+
+  const level = document.createElement("div");
+
+  level.innerHTML = `
+    <div style="font-size:34px;">
+      ⭐ LEVEL UP ⭐
+    </div>
+
+    <div style="margin-top:8px;">
+      You are now level ${krackLevel}
+    </div>
+
+    <div style="
+      margin-top:10px;
+      font-size:20px;
+      color:yellow;
+    ">
+      ${ranks[Math.floor(Math.random()*ranks.length)]}
+    </div>
+  `;
+
+  level.style.position = "fixed";
+
+  // 👇 PERFECT POSITION
+  level.style.bottom = "25px";
+  level.style.left = "50%";
+  level.style.transform = "translateX(-50%) scale(0.7)";
+
+  level.style.padding = "18px 34px";
+
+  level.style.background =
+    "linear-gradient(to bottom, #222, #000)";
+
+  level.style.border = "4px solid white";
+
+  level.style.boxShadow =
+    "0 0 25px cyan, 0 0 45px lime";
+
+  level.style.color = "white";
+
+  level.style.fontFamily =
+    '"Comic Sans MS", cursive';
+
+  level.style.textAlign = "center";
+
+  level.style.zIndex = "999999";
+
+  level.style.imageRendering = "pixelated";
+
+  // ✨ intro animation
+  level.style.transition =
+    "all 0.25s ease-out";
+
+  document.body.appendChild(level);
+
+  // grow in
+  setTimeout(() => {
+
+    level.style.transform =
+      "translateX(-50%) scale(1.05)";
+
+  }, 20);
+
+  // ✨ fake screen shake
+  let shake = setInterval(() => {
+
+    level.style.marginLeft =
+      (Math.random()*10-5) + "px";
+
+    level.style.marginBottom =
+      (Math.random()*6-3) + "px";
+
+  }, 40);
+
+  // ✨ random silly messages
+  const extra = document.createElement("div");
+
+  extra.textContent = [
+    "your amount of eyes increased",
+    "bread resonance detected",
+    "you learned absolutely nothing",
+    "radio frequencies expanded",
+    "krack energy rising",
+    "you smell stronger",
+    "new loaf unlocked",
+    "the fish are impressed"
+  ][Math.floor(Math.random()*8)];
+
+  extra.style.marginTop = "12px";
+  extra.style.fontSize = "14px";
+  extra.style.opacity = "0.8";
+
+  level.appendChild(extra);
+
+  // ✨ fake progress bar
+  const barOuter = document.createElement("div");
+
+  barOuter.style.width = "300px";
+  barOuter.style.height = "18px";
+
+  barOuter.style.background = "#111";
+  barOuter.style.border = "2px solid white";
+
+  barOuter.style.marginTop = "14px";
+
+  barOuter.style.overflow = "hidden";
+
+  level.appendChild(barOuter);
+
+  const barInner = document.createElement("div");
+
+  barInner.style.height = "100%";
+  barInner.style.width = "0%";
+
+  barInner.style.background =
+    "linear-gradient(to right, lime, cyan)";
+
+  barInner.style.transition =
+    "width 1.2s ease-out";
+
+  barOuter.appendChild(barInner);
+
+  setTimeout(() => {
+
+    barInner.style.width = "100%";
+
+  }, 50);
+
+  // 🎵 optional goofy sound
+  const audio = new Audio(
+    "https://www.myinstants.com/media/sounds/windows-xp-error.mp3"
+  );
+
+  audio.volume = 0.25;
+
+  audio.play().catch(()=>{});
+
+  // remove shake
+  setTimeout(() => {
+
+    clearInterval(shake);
+
+    level.style.marginLeft = "0px";
+    level.style.marginBottom = "0px";
+
+  }, 1000);
+
+  // fade out
+  setTimeout(() => {
+
+    level.style.opacity = "0";
+    level.style.transform =
+      "translateX(-50%) scale(1.3)";
+
+  }, 3500);
+
+  // remove
+  setTimeout(() => {
+
+    level.remove();
+
+  }, 4300);
+
+}
+
+
+// 🧍 MII GUESTBOOK UNLOCK
+// click enough chaos/popups to unlock potato communication
+
+
+
+let chaosClicks = 0;
+let guestbookUnlocked = false;
+
+// 👇 amount needed
+const unlockRequirement = 25;
+
+// 💬 speech bubble
+const miiBubble = document.createElement("div");
+
+miiBubble.style.position = "absolute";
+miiBubble.style.left = "68%";
+miiBubble.style.top = "170px";
+
+miiBubble.style.background = "white";
+miiBubble.style.color = "black";
+
+miiBubble.style.padding = "8px 12px";
+
+miiBubble.style.border = "3px solid black";
+
+miiBubble.style.fontFamily = '"Comic Sans MS"';
+
+miiBubble.style.fontSize = "18px";
+
+miiBubble.style.zIndex = "999999";
+
+miiBubble.style.display = "none";
+
+miiBubble.style.boxShadow =
+  "0 0 12px rgba(0,0,0,0.5)";
+
+document.body.appendChild(miiBubble);
+
+// 💬 speech helper
+function speakMii(text){
+
+  miiBubble.textContent = text;
+
+  miiBubble.style.display = "block";
+
+  miiBubble.style.transform = "scale(0.7)";
+  miiBubble.style.transition = "0.2s";
+
+  setTimeout(()=>{
+
+    miiBubble.style.transform = "scale(1)";
+
+  },20);
+
+  setTimeout(()=>{
+
+    miiBubble.style.display = "none";
+
+  },3000);
+
+}
+
+// 🎯 TRACK CHAOS
+document.addEventListener("click",(e)=>{
+
+  const clickedChaos =
+    e.target.classList.contains("chaos-btn");
+
+  const clickedClose =
+    e.target.classList.contains("close-btn");
+
+  // only count chaos interactions
+  if(clickedChaos || clickedClose){
+
+    chaosClicks++;
+
+    console.log(
+      "CHAOS:",
+      chaosClicks + "/" + unlockRequirement
+    );
+
+    // 🧍 reveal mii more
+    const revealAmount =
+      Math.min(chaosClicks * 6, 90);
+
+    mii.style.transform =
+      `translateX(-${revealAmount}px)
+       rotate(-34deg)
+       scale(1.15)`;
+
+    // 👀 goofy dialogue
+    if(chaosClicks === 5){
+
+      speakMii("you enjoy the chaos");
+
+    }
+
+    if(chaosClicks === 10){
+
+      speakMii("the bread trusts you");
+
+    }
+
+    if(chaosClicks === 14){
+
+      speakMii("one more disturbance...");
+
+    }
+
+    // 🔓 unlock
+    if(
+      chaosClicks >= unlockRequirement &&
+      !guestbookUnlocked
+    ){
+
+      guestbookUnlocked = true;
+
+      unlockGuestbook();
+
+    }
+
+  }
+
+});
+
+// 🔓 GUESTBOOK UNLOCK
+function unlockGuestbook(){
+
+  // ⚡ flash
+  document.body.style.filter = "invert(1)";
+
+  setTimeout(()=>{
+
+    document.body.style.filter = "none";
+
+  },150);
+
+  // 🧍 dramatic mii reveal
+  mii.style.transform =
+    "translateX(-120px) rotate(-26deg) scale(1.45)";
+
+  // ✨ glow
+  mii.style.filter =
+    "drop-shadow(0 0 20px cyan) drop-shadow(0 0 40px lime)";
+
+  // 👇 THIS FIXES THE BUG
+  mii.style.pointerEvents = "auto";
+
+  // clickable cursor
+  mii.style.cursor = "pointer";
+
+const hitbox = document.getElementById("mii-hitbox");
+
+hitbox.style.pointerEvents = "auto";
+
+
+  // 💬 dialogue
+  speakMii("you have earned potato communication");
+
+  // 📢 unlock banner
+  const unlockText =
+    document.createElement("div");
+
+  unlockText.innerHTML = `
+    🥔 GUESTBOOK UNLOCKED 🥔
+    <br>
+    CLICK THE MII
+  `;
+
+  unlockText.style.position = "fixed";
+
+  unlockText.style.top = "20px";
+  unlockText.style.left = "50%";
+
+  unlockText.style.transform =
+    "translateX(-50%)";
+
+  unlockText.style.padding =
+    "14px 22px";
+
+  unlockText.style.background =
+    "black";
+
+  unlockText.style.color =
+    "lime";
+
+  unlockText.style.border =
+    "3px solid white";
+
+  unlockText.style.fontFamily =
+    "monospace";
+
+  unlockText.style.textAlign =
+    "center";
+
+  unlockText.style.zIndex =
+    "999999";
+
+  unlockText.style.boxShadow =
+    "0 0 20px lime";
+
+  document.body.appendChild(unlockText);
+
+  // 🎵 goofy unlock sound
+  const unlockSound = new Audio(
+    "https://www.myinstants.com/media/sounds/vine-boom.mp3"
+  );
+
+  unlockSound.volume = 0.2;
+
+  unlockSound.play().catch(()=>{});
+
+  // 🎯 CLICK MII TO ENTER GUESTBOOK
+ hitbox.onclick = ()=>{
+
+    const loading =
+      document.createElement("div");
+
+    loading.innerHTML = `
+      connecting to potato network...
+      <br><br>
+      [██░░░░░░░]
+    `;
+
+    loading.style.position = "fixed";
+
+    loading.style.top = "50%";
+    loading.style.left = "50%";
+
+    loading.style.transform =
+      "translate(-50%,-50%)";
+
+    loading.style.background =
+      "black";
+
+    loading.style.color =
+      "lime";
+
+    loading.style.padding =
+      "20px";
+
+    loading.style.border =
+      "3px solid white";
+
+    loading.style.fontFamily =
+      "monospace";
+
+    loading.style.zIndex =
+      "999999";
+
+    loading.style.textAlign =
+      "center";
+
+    document.body.appendChild(loading);
+
+    // fake loading stages
+    setTimeout(()=>{
+
+      loading.innerHTML = `
+        connecting to potato network...
+        <br><br>
+        [█████░░░░]
+      `;
+
+    },600);
+
+    setTimeout(()=>{
+
+      loading.innerHTML = `
+        connecting to potato network...
+        <br><br>
+        [█████████]
+      `;
+
+    },1200);
+
+    setTimeout(()=>{
+
+      window.location.href =
+        "Potato.html";
+
+    },1800);
+
+  };
+
+}
+/* =========================
+   KRACKPLAYER 2004
+========================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  /* 🎵 ELEMENTS */
+  const music = document.getElementById("music");
+  const player = document.getElementById("krackPlayer");
+  const header = document.getElementById("playerHeader");
+
+  const trackInfo = document.getElementById("trackInfo");
+  const volumeSlider = document.getElementById("volumeSlider");
+  const seekBar = document.getElementById("seekBar");
+  const timeDisplay = document.getElementById("timeDisplay");
+  const drawer = document.getElementById("drawer");
+  const albumCover = document.getElementById("albumCover");
+
+  /* 🎵 TRACK LIST */
+  const tracks = [
+    {
+      name: "Mom i really hate you - Mewgenics",
+      url: "https://files.catbox.moe/c1rahv.mp3",
+      cover: "mew.jpeg"
+    },
+    {
+      name: "MURDER EVERY 1 U KNOW! - Femtanyl",
+      url: "https://files.catbox.moe/np0zk9.mp3",
+      cover: "fem.jpeg"
+    },
+    {
+      name: "Vantasm - Excelsior",
+      url: "https://files.catbox.moe/xvv4e0.mp3",
+      cover: "excelsior.png"
+    },
+    {
+      name: "Zombie Survival - Garry's Mod",
+      url: "https://files.catbox.moe/sgzmoo.mp3",
+      cover: "zs.jpeg"
+    },
+    {
+      name: "Black pussy - Mewgenics",
+      url: "https://files.catbox.moe/2qs4m5.mp3",
+      cover: "wmew.webp"
+    },
+    {
+      name: "Want you gone - Portal 2",
+      url: "https://files.catbox.moe/geb5fx.mp3",
+      cover: "port2.jpeg"
+    }
+  ];
+
+  /* 📦 STATE */
+  let saved = localStorage.getItem("krack_track");
+  let currentTrack = tracks.find(t => t.url === saved) || tracks[0];
+  let isSeeking = false;
+
+  /* 🎲 RANDOM */
+  function randomTrack() {
+    return tracks[Math.floor(Math.random() * tracks.length)];
+  }
+
+  /* 🎧 UPDATE UI */
+  function updateTrackInfo() {
+    trackInfo.textContent = "Now Playing: " + currentTrack.name;
+
+    if (albumCover) {
+      albumCover.src = currentTrack.cover;
+    }
+
+    document.querySelectorAll(".trackItem").forEach(item => {
+      item.classList.remove("activeTrack");
+      if (item.dataset.track === currentTrack.url) {
+        item.classList.add("activeTrack");
+      }
+    });
+  }
+
+  /* ▶ LOAD TRACK */
+  function loadTrack(track, autoplay = true) {
+    currentTrack = track;
+
+    music.src = track.url;
+    music.load();
+
+    if (autoplay) music.play().catch(() => {});
+
+    localStorage.setItem("krack_track", track.url);
+
+    updateTrackInfo();
+  }
+
+  /* ⏩ NEXT */
+  function nextTrack() {
+    let next = randomTrack();
+
+    while (next.url === currentTrack.url && tracks.length > 1) {
+      next = randomTrack();
+    }
+
+    loadTrack(next);
+  }
+
+  /* 📜 DRAWER */
+  function buildDrawer() {
+    drawer.innerHTML = "";
+
+    tracks.forEach(track => {
+      const div = document.createElement("div");
+      div.className = "trackItem";
+      div.textContent = track.name;
+      div.dataset.track = track.url;
+
+      div.onclick = () => loadTrack(track);
+
+      drawer.appendChild(div);
+    });
+  }
+
+  window.toggleDrawer = function () {
+    drawer.style.display =
+      drawer.style.display === "block" ? "none" : "block";
+  };
+
+  /* 🔊 VOLUME */
+  const savedVol = localStorage.getItem("krack_volume");
+  music.volume = savedVol ? parseFloat(savedVol) : 0.5;
+
+  window.setVolume = (v) => {
+    music.volume = v;
+    localStorage.setItem("krack_volume", v);
+  };
+
+  /* ▶ PLAY */
+  window.toggleMusic = () => {
+    music.paused ? music.play() : music.pause();
+  };
+
+  /* ⏩ AUTO NEXT */
+  music.addEventListener("ended", nextTrack);
+
+  /* ⏱ SEEK BAR */
+  music.addEventListener("timeupdate", () => {
+    if (!music.duration || isSeeking) return;
+
+    seekBar.value = (music.currentTime / music.duration) * 100;
+
+    timeDisplay.textContent =
+      formatTime(music.currentTime) + " / " +
+      formatTime(music.duration);
+  });
+
+  seekBar.addEventListener("input", () => isSeeking = true);
+
+  seekBar.addEventListener("change", (e) => {
+    music.currentTime = (e.target.value / 100) * music.duration;
+    isSeeking = false;
+  });
+
+  function formatTime(s) {
+    if (isNaN(s)) return "0:00";
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return m + ":" + (sec < 10 ? "0" + sec : sec);
+  }
+
+  /* 🪟 DRAG */
+  let dragging = false;
+  let offsetX = 0;
+  let offsetY = 0;
+
+  header.addEventListener("mousedown", (e) => {
+    dragging = true;
+    offsetX = e.clientX - player.offsetLeft;
+    offsetY = e.clientY - player.offsetTop;
+  });
+
+  document.addEventListener("mousemove", (e) => {
+    if (!dragging) return;
+    player.style.left = (e.clientX - offsetX) + "px";
+    player.style.top = (e.clientY - offsetY) + "px";
+  });
+
+  document.addEventListener("mouseup", () => dragging = false);
+
+  /* 🚀 INIT */
+  loadTrack(currentTrack, false);
+  buildDrawer();
+  updateTrackInfo();
+
+});
+
+let meloLevel = 0;
+
+const melo =
+document.getElementById("melo");
+
+melo.addEventListener("click", () => {
+
+  meloLevel++;
+
+  switch(meloLevel){
+
+    case 1:
+
+      document.body.style.transform =
+        "rotate(1deg)";
+
+      createPopup();
+
+      break;
+
+    case 2:
+
+      document
+      .querySelectorAll("img")
+      .forEach(img => {
+
+        img.style.transform +=
+          " scaleX(1.1)";
+
+      });
+
+      createPopup();
+
+      break;
+
+    case 3:
+
+      document.title =
+        "MELOHOUSE";
+
+      createPopup();
+
+      break;
+
+    case 4:
+
+      document.body.style.filter =
+        "hue-rotate(90deg)";
+
+      createPopup();
+
+      break;
+
+    case 5:
+
+      document.getElementById(
+        "krack-title"
+      ).textContent =
+      "Welcome to the Melohouse";
+
+      createPopup();
+
+      break;
+
+    case 6:
+
+      document.body.style.transform =
+        "rotate(180deg)";
+
+      createPopup();
+
+      break;
+
+    case 7:
+
+      document.body.innerHTML +=
+      `
+      <div style="
+      position:fixed;
+      top:50%;
+      left:50%;
+      transform:translate(-50%,-50%);
+      font-size:80px;
+      z-index:999999;
+      color:red;
+      font-family:comic sans ms;
+      ">
+      MELO
+      </div>
+      `;
+
+      break;
+
+  }
+
+
+
+
+
+});
+
+// 🦣 TAPIR SECURITY 2004
+
+const tapirMessages = [
+  "Threat Level: Moderate",
+  "Threat Level: Bread",
+  "Threat Level: Fish",
+  "Threat Level: Creamy",
+  "Threat Level: Acceptable",
+  "Loaf Detected",
+  "No Loaf Detected",
+  "Tapir is Investigating...",
+  "Tapir is Watching...",
+  "Fish Authentication Failed",
+  "Bart Under Observation",
+  "Security Level: Crust"
+];
+
+const tapirAlerts = [
+  "Tapir blocked 7 suspicious breads",
+  "Foreign loaf detected",
+  "Fish attempting login",
+  "Warning: Bart observed",
+  "Tapir has reviewed your behavior",
+  "Soup Wizard detected",
+  "Unauthorized cream entity",
+  "Mii approaching perimeter",
+  "Tapir security update complete",
+  "Dust devil contained"
+];
+
+// status text updater
+const tapirStatus =
+  document.getElementById("tapirStatus");
+
+if(tapirStatus){
+
+  setInterval(()=>{
+
+    tapirStatus.textContent =
+      tapirMessages[
+        Math.floor(
+          Math.random()*tapirMessages.length
+        )
+      ];
+
+  },5000);
+
+}
+
+// random security alerts
+setInterval(()=>{
+
+  if(Math.random() < 0.20){
+
+    const p = document.createElement("div");
+
+    p.className = "popup";
+
+    p.style.left =
+      Math.random() *
+      (window.innerWidth - 240)
+      + "px";
+
+    p.style.top =
+      Math.random() *
+      (window.innerHeight - 120)
+      + "px";
+
+    p.innerHTML = `
+      <div class="popup-header">
+        TAPIR SECURITY
+        <div class="close-btn"
+        onclick="this.parentElement.parentElement.remove()">
+          X
+        </div>
+      </div>
+
+      <div class="popup-body">
+        ${
+          tapirAlerts[
+            Math.floor(
+              Math.random()*tapirAlerts.length
+            )
+          ]
+        }
+      </div>
+    `;
+
+    document
+      .getElementById("popup-container")
+      .appendChild(p);
+
+  }
+
+},10000);
+
+const tapirWindow =
+  document.getElementById("tapirWindow");
+
+const tapirHeader =
+  document.getElementById("tapirHeader");
+
+let draggingTapir = false;
+
+let tapirOffsetX = 0;
+let tapirOffsetY = 0;
+
+tapirHeader.addEventListener("mousedown",(e)=>{
+
+  draggingTapir = true;
+
+  tapirWindow.style.bottom = "auto";
+  tapirWindow.style.right = "auto";
+
+  tapirOffsetX =
+    e.clientX - tapirWindow.offsetLeft;
+
+  tapirOffsetY =
+    e.clientY - tapirWindow.offsetTop;
+
+});
+// Mewgenics
+document.addEventListener("mousemove",(e)=>{
+
+  if(!draggingTapir) return;
+
+  tapirWindow.style.left =
+    (e.clientX - tapirOffsetX) + "px";
+
+  tapirWindow.style.top =
+    (e.clientY - tapirOffsetY) + "px";
+
+});
+
+document.addEventListener("mouseup",()=>{
+
+  draggingTapir = false;
+
+});
+
+function makeDraggable(windowEl){
+
+  const header = windowEl.querySelector(".window-header");
+
+  let offsetX = 0;
+  let offsetY = 0;
+  let isDragging = false;
+
+  header.addEventListener("mousedown", (e)=>{
+
+    isDragging = true;
+
+    offsetX = e.clientX - windowEl.offsetLeft;
+    offsetY = e.clientY - windowEl.offsetTop;
+
+    header.style.cursor = "grabbing";
+  });
+
+  document.addEventListener("mousemove", (e)=>{
+
+    if(!isDragging) return;
+
+    windowEl.style.left = (e.clientX - offsetX) + "px";
+    windowEl.style.top  = (e.clientY - offsetY) + "px";
+  });
+
+  document.addEventListener("mouseup", ()=>{
+
+    isDragging = false;
+    header.style.cursor = "grab";
+  });
+}
+
+makeDraggable(document.getElementById("cowWindow"));
+
+</script>
+<audio id="music"></audio>
+</body>
+</html>

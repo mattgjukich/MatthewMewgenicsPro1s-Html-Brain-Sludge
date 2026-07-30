@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>you found it</title>
+
+<style>
+body {
+  background: black;
+  color: lime;
+  font-family: monospace;
+  text-align: center;
+  overflow: hidden;
+}
+
+#main {
+  margin-top: 100px;
+  font-size: 20px;
+}
+
+.glitch {
+  position: fixed;
+  pointer-events: none;
+  opacity: 0.2;
+  font-size: 12px;
+  color: red;
+}
+
+button {
+  margin-top: 20px;
+  padding: 10px;
+  font-family: monospace;
+  cursor: pointer;
+}
+</style>
+<link rel="icon" type="image/png" href="eggyd.png">
+</head>
+
+<body>
+
+<div id="main">
+  <p>
+The page has been replaced with Slope due to budget cuts.
+</p>
+  <button id="btn">ok</button>
+</div>
+
+<iframe src="https://y8.com/embed/slope" scrolling="no" frameborder="0" width="960" height="641" allowfullscreen="true"></iframe>
+
+
+<script>
+
+// TEXT EVOLUTION
+const texts = [
+  "you found something",
+  "you really shouldn't be here",
+  "this wasn't hidden very well",
+  "wait",
+  "are you going to stay",
+  "most people leave",
+  "why are you still here",
+  "ok this is getting weird",
+  "stop reading",
+  "seriously",
+  "this is not content",
+  "you are wasting time",
+  "fine",
+  "i will start doing things now"
+];
+
+let index = 0;
+
+document.getElementById("btn").onclick = () => {
+  index++;
+  if (index < texts.length) {
+    document.getElementById("text").textContent = texts[index];
+  } else {
+    chaosMode();
+  }
+};
+
+// CHAOS MODE
+function chaosMode() {
+
+  // text starts moving
+  setInterval(() => {
+    const main = document.getElementById("main");
+    main.style.transform = `translate(${Math.random()*20-10}px, ${Math.random()*20-10}px)`;
+  }, 100);
+
+  // spawn fake errors
+  setInterval(() => {
+    const g = document.createElement("div");
+    g.className = "glitch";
+    g.style.left = Math.random()*window.innerWidth + "px";
+    g.style.top = Math.random()*window.innerHeight + "px";
+    g.textContent = "undefined is not a feeling";
+    document.body.appendChild(g);
+
+    setTimeout(()=>g.remove(), 2000);
+  }, 300);
+
+  // button multiplies but worse than before
+  setInterval(() => {
+    const b = document.createElement("button");
+    b.textContent = "leave";
+    b.style.position = "fixed";
+    b.style.left = Math.random()*window.innerWidth + "px";
+    b.style.top = Math.random()*window.innerHeight + "px";
+
+    b.onclick = () => {
+      b.textContent = "too late";
+      document.body.style.filter = "hue-rotate(" + Math.random()*360 + "deg)";
+    };
+
+    document.body.appendChild(b);
+  }, 1500);
+
+  // cursor lies
+  document.addEventListener("mousemove", (e) => {
+    const fake = document.createElement("div");
+    fake.textContent = "+1 mistake";
+    fake.className = "glitch";
+    fake.style.left = e.clientX + "px";
+    fake.style.top = e.clientY + "px";
+    document.body.appendChild(fake);
+
+    setTimeout(()=>fake.remove(), 800);
+  });
+
+  // title starts changing
+  setInterval(() => {
+    document.title = ["you found it", "no you didn't", "go back", "why"][Math.floor(Math.random()*4)];
+  }, 500);
+}
+
+</script>
+
+</body>
+</html>

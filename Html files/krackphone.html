@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>KRACKPHONE 2004</title>
+      <style>body{margin:0;background:#1b1b1b}
+      #phone{position:absolute;left:120px;top:80px;width:340px;background:#c0c0c0;border:3px outset #fff;font-family:Tahoma}
+      #title{background:#0047ab;color:#fff;padding:6px;cursor:move;font-weight:bold}
+      #screen{margin:10px;background:#131;color:#6f6;padding:10px;font-family:monospace;height:50px}
+      #keys{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:10px}button{padding:12px}</style>
+   </head>
+   <body>
+      <div id="phone">
+         <div id="title">☎ KRACKPHONE 2004</div>
+         <div id="screen">
+            <div id="status">READY</div>
+            <div id="number"></div>
+         </div>
+         <div id="keys"></div>
+         <div style="display:flex;gap:6px;padding:10px"><button id="call">CALL</button><button id="clear">CLEAR</button><button id="hang">HANG</button></div>
+      </div>
+      <script>
+
+// ======================
+// KRACKPHONE PHONEBOOK
+// ======================
+
+const phonebook = {
+
+  "5558581": {
+    title: "Reese's Puffs Rap",
+    audio: "https://file.garden/akbpd3b1NCgL8aGe/reese%E2%80%98s-puffs!-eat-em-up-made-with-Voicemod.mp3",
+    status: "CEREAL DETECTED"
+  },
+
+  "5557719": {
+    title: "G-Man Intro",
+    audio: "https://file.garden/akbpd3b1NCgL8aGe/gman-half-life-2-1080p-hd-made-with-Voicemod.mp3",
+    status: "Rise and shine!, Mr.Freeman!"
+  },
+
+  "5551452": {
+    title: "AVGN Wrist Game",
+    audio: "https://file.garden/akbpd3b1NCgL8aGe/64-bits-32-bits...-made-with-Voicemod.mp3",
+    status: "THE WRIST GAAAMMMEEE!"
+  },
+
+  "5552526": {
+    title: "dlwm",
+    audio: "https://file.garden/akbpd3b1NCgL8aGe/dustin-lucas-will-mike-burp.mp3",
+    status: "Dustin lucas will mike~"
+  }
+
+};
+
+// ======================
+// DTMF TONES
+// ======================
+
+const dt = {
+  "1":[697,1209],
+  "2":[697,1336],
+  "3":[697,1477],
+  "4":[770,1209],
+  "5":[770,1336],
+  "6":[770,1477],
+  "7":[852,1209],
+  "8":[852,1336],
+  "9":[852,1477],
+  "*":[941,1209],
+  "0":[941,1336],
+  "#":[941,1477]
+};
+
+let num = "";
+
+const N = document.getElementById("number");
+const S = document.getElementById("status");
+const A = new Audio();
+
+function updateNumber(){
+    N.textContent = num;
+}
+
+function tone(key){
+
+    const ctx =
+        new (window.AudioContext || window.webkitAudioContext)();
+
+    const o1 = ctx.createOscillator();
+    const o2 = ctx.createOscillator();
+    const g = ctx.createGain();
+
+    o1.frequency.value = dt[key][0];
+    o2.frequency.value = dt[key][1];
+
+    o1.connect(g);
+    o2.connect(g);
+    g.connect(ctx.destination);
+
+    g.gain.value = 0.08;
+
+    o1.start();
+    o2.start();
+
+    setTimeout(()=>{
+        o1.stop();
+        o2.stop();
+        ctx.close();
+    },120);
+
+}
+
+// ======================
+// BUILD KEYPAD
+// ======================
+
+"123456789*0#".split("").forEach(key=>{
+
+    const b = document.createElement("button");
+
+    b.textContent = key;
+
+    b.onclick = ()=>{
+
+        tone(key);
+
+        if(/[0-9]/.test(key) && num.length < 7){
+
+            num += key;
+            updateNumber();
+
+        }
+
+    };
+
+    keys.appendChild(b);
+
+});
+
+// ======================
+// BUTTONS
+// ======================
+
+clear.onclick = ()=>{
+
+    num = "";
+    updateNumber();
+
+    S.textContent = "READY";
+
+    A.pause();
+    A.currentTime = 0;
+
+};
+
+hang.onclick = ()=>{
+
+    A.pause();
+    A.currentTime = 0;
+
+    S.textContent = "CALL ENDED";
+
+};
+
+call.onclick = ()=>{
+
+    S.textContent = "DIALING...";
+
+    setTimeout(()=>{
+
+        const contact = phonebook[num];
+
+        if(contact){
+
+            S.textContent = contact.status;
+
+            A.src = contact.audio;
+            A.play();
+
+            console.log("Connected to:", contact.title);
+
+        }else{
+
+            S.textContent = "NUMBER NOT FOUND";
+
+        }
+
+    },1000);
+
+};
+
+// ======================
+// DRAG WINDOW
+// ======================
+
+let p = phone;
+let t = title;
+
+let dragging = false;
+let offX;
+let offY;
+
+t.onmousedown = e=>{
+
+    dragging = true;
+
+    offX = e.clientX - p.offsetLeft;
+    offY = e.clientY - p.offsetTop;
+
+};
+
+document.onmousemove = e=>{
+
+    if(dragging){
+
+        p.style.left = (e.clientX - offX) + "px";
+        p.style.top  = (e.clientY - offY) + "px";
+
+    }
+
+};
+
+document.onmouseup = ()=>{
+
+    dragging = false;
+
+};
+
+updateNumber();
+
+</script>
+   </body>
+</html>

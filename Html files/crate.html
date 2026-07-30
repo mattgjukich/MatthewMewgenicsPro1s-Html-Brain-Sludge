@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CASE OPEN GAME!! </title>
+
+<style>
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #3b2f2f, #141010);
+  color: #f3e7d3;
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  text-align: center;
+}
+
+h1 {
+  margin-top: 24px;
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffb84d;
+  text-shadow: 2px 2px 0 #000, 0 0 10px rgba(255,140,0,0.6);
+}
+
+#window {
+  width: 960px;
+  height: 250px;
+  margin: 40px auto;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(to bottom, #4a3b2a, #2b1f18);
+  border: 4px solid #8b5a2b;
+  border-radius: 10px;
+}
+
+#strip {
+  display: flex;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 250px;
+}
+
+.item {
+  width: 200px;
+  height: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(to bottom, #3a2c22, #241a14);
+  border-right: 2px solid rgba(255,255,255,0.05);
+}
+
+.item img {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+}
+
+.name {
+  font-size: 14px;
+  margin-top: 10px;
+  color: #f0d7a7;
+}
+
+#inventory {
+  width: 960px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.invItem {
+  background: rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 8px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.invItem img {
+  width: 60px;
+  height: 60px;
+}
+
+button {
+  padding: 14px 30px;
+  font-size: 18px;
+  font-weight: bold;
+  background: linear-gradient(to bottom, #ff9d3c, #cc5a00);
+  border: 3px solid #5a2e00;
+  cursor: pointer;
+}
+
+#result {
+  margin-top: 24px;
+  font-size: 24px;
+  min-height: 120px;
+}
+
+#lastDrop {
+  margin-top: 10px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+</style>
+<link rel="icon" type="image/png" href="eggyd.png">
+</head>
+
+<body>
+
+<h1>FUN CASE OPENING GAME NO SCAM</h1>
+
+<div id="window">
+  <div id="strip"></div>
+</div>
+
+<button onclick="openCase()">OPEN CASE</button>
+
+<button onclick="resetInventory()">
+  RESET INVENTORY
+</button>
+
+<div id="result"></div>
+<div id="lastDrop"></div>
+
+<h2>INVENTORY</h2>
+<div id="inventory"></div>
+
+<script>
+
+const items = [
+  { img:"pizzatart.png", name:"Pizza Poptarts", price:"$0.07" },
+  { img:"banana.png", name:"filbert", price:"$1.20" },
+  { img:"cancer.jpg", name:"Cancer Hotpockets", price:"$0.40" },
+  { img:"popsucle.jpg", name:"Popsucles", price:"$12.59" },
+  { img:"rat.png", name:"Terrorist Rat", price:"$102.04" },
+  { img:"smile.png", name:"Retired Smile", price:"$10.76" },
+  { img:"bender.gif", name:"Bender Banana", price:"$309.21" },
+  { img:"stacy1.png", name:"Stacy Plush", price:"$33.00" },
+  { img:"monster.png", name:"Monster Energy", price:"$5.99" },
+  { img:"water.png", name:"Flubgut", price:"$17.69" },
+  { img:"happe.png", name:"Blue Statue", price:"$0.03" },
+  { img:"sour.png", name:"Orange Sour Patch Kid", price:"$589.19" },
+  { img:"l4d2.jpg", name:"Left 4 Dead 2 For the Xbox 360", price:"$12.99" },
+  { img:"Shotgun.png", name:"Sawed off Shotgun", price:"$129.49" },
+  { img:"Pillsbury.png", name:"Pillsbury Doughboy", price:"$34.00" },
+  { img:"cin.png", name:"Cannibal", price:"$4.00" },
+  { img:"birb.png", name:"Just a Pidgeon", price:"$56.76" },
+  { img:"melo.png", name:"Marshmellow", price:"$0.03" },
+  { img:"ice.png", name:"Evan", price:"$1.27" },
+  { img:"sack.png", name:"SackThing", price:"$11.03" }
+];
+
+/*  rarity system */
+function getRarity() {
+  const r = Math.random();
+
+  if (r < 0.02) return "UNUSUAL";
+  if (r < 0.08) return "RARE";
+  if (r < 0.25) return "UNCOMMON";
+
+  return "COMMON";
+}
+
+/*  rarity colors */
+function rarityColor(rarity) {
+
+  switch(rarity) {
+
+    case "UNUSUAL":
+      return "#ff66ff";
+
+    case "RARE":
+      return "#4db8ff";
+
+    case "UNCOMMON":
+      return "#66ff66";
+
+    default:
+      return "#cccccc";
+  }
+}
+
+let inventory = JSON.parse(localStorage.getItem("krack_inventory")) || {};
+
+const strip = document.getElementById("strip");
+const result = document.getElementById("result");
+const inventoryUI = document.getElementById("inventory");
+const lastDropUI = document.getElementById("lastDrop");
+
+let itemWidth = 200;
+let spinning = false;
+
+/* build strip */
+function buildStrip() {
+
+  strip.innerHTML = "";
+
+  for (let i = 0; i < 30; i++) {
+
+    const base = items[Math.floor(Math.random() * items.length)];
+
+    const rarity = getRarity();
+
+    const div = document.createElement("div");
+    div.className = "item";
+
+    div.innerHTML = `
+      <img src="${base.img}">
+
+      <div class="name">${base.name}</div>
+
+      <div style="
+        font-size:12px;
+        margin-top:4px;
+        color:${rarityColor(rarity)};
+        font-weight:bold;
+      ">
+        ${rarity}
+      </div>
+    `;
+
+    strip.appendChild(div);
+  }
+}
+
+/* save inventory */
+function saveInventory() {
+  localStorage.setItem("krack_inventory", JSON.stringify(inventory));
+}
+
+/* render inventory */
+function renderInventory() {
+
+  inventoryUI.innerHTML = "";
+
+  Object.entries(inventory).forEach(([name, data]) => {
+
+    const div = document.createElement("div");
+
+    div.className = "invItem";
+
+    div.innerHTML = `
+      <img src="${data.img}">
+
+      <div>
+        <b>${name}</b>
+      </div>
+
+      <div style="margin-top:4px;">
+        x${data.count}
+      </div>
+    `;
+
+    inventoryUI.appendChild(div);
+  });
+}
+
+function renderInventory() {
+
+  inventoryUI.innerHTML = "";
+
+  Object.entries(inventory).forEach(([name, data]) => {
+
+    const div = document.createElement("div");
+
+    div.className = "invItem";
+
+    div.innerHTML = `
+      <img src="${data.img}">
+
+      <div>
+        <b>${name}</b>
+      </div>
+
+      <div style="margin-top:4px;">
+        x${data.count}
+      </div>
+    `;
+
+    inventoryUI.appendChild(div);
+  });
+}
+
+/* open case */
+function openCase() {
+
+  if (spinning) return;
+
+  spinning = true;
+
+  result.innerHTML = "";
+
+  buildStrip();
+
+  const winIndex = Math.floor(Math.random() * 5) + 18;
+
+  const finalX = -winIndex * itemWidth + 450;
+
+  let start = null;
+
+  let duration = 3200;
+
+  function animate(t) {
+
+    if (!start) start = t;
+
+    let progress = (t - start) / duration;
+
+    if (progress > 1) progress = 1;
+
+    let ease = 1 - Math.pow(1 - progress, 4);
+
+    strip.style.transform =
+      `translateX(${ease * finalX}px)`;
+
+    if (progress < 1) {
+
+      requestAnimationFrame(animate);
+
+    } else {
+
+      finish(winIndex);
+    }
+  }
+
+  requestAnimationFrame(animate);
+}
+
+/* finish */
+function finish(index) {
+
+  const itemEl =
+    strip.children[index % strip.children.length];
+
+  const img =
+    itemEl.querySelector("img").src;
+
+  const name =
+    itemEl.querySelector(".name").textContent;
+
+  const rarity =
+    itemEl.querySelector("div:nth-child(3)").textContent.trim();
+
+  const price =
+    items.find(i => i.name === name)?.price || "???";
+
+  /* inventory logic */
+  if (!inventory[name]) {
+
+    inventory[name] = {
+      img,
+      rarity,
+      count: 0
+    };
+  }
+
+  inventory[name].count += 1;
+
+  saveInventory();
+
+  renderInventory();
+
+  /* result */
+  result.innerHTML = `
+    🎉 YOU GOT: <b>${name}</b><br>
+
+    💰 Value: ${price}<br>
+
+    <span style="
+      color:${rarityColor(rarity)};
+      font-weight:bold;
+    ">
+      ⭐ ${rarity}
+    </span>
+
+    <br>
+
+    <img
+      src="${img}"
+      width="140"
+      style="margin-top:12px;"
+    >
+  `;
+
+  /* last opened */
+  lastDropUI.innerHTML = `
+    📦 Last Opened:
+    <b>${name}</b>
+
+    <span style="
+      color:${rarityColor(rarity)};
+      font-weight:bold;
+    ">
+      (${rarity})
+    </span>
+
+    <br>
+
+    <img
+      src="${img}"
+      width="80"
+      style="margin-top:6px;"
+    >
+  `;
+
+  spinning = false;
+}
+
+/* init */
+renderInventory();
+buildStrip();
+
+
+function resetInventory() {
+
+  if (!confirm("Delete entire inventory?")) {
+    return;
+  }
+
+  inventory = {};
+
+  localStorage.removeItem("krack_inventory");
+
+  renderInventory();
+
+  result.innerHTML = `
+    🗑️ Inventory wiped.
+  `;
+
+  lastDropUI.innerHTML = "";
+}
+
+
+</script>
+
+</body>
+</html>
