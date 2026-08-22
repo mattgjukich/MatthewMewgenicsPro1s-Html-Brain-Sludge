@@ -581,6 +581,34 @@ button.chaos-btn {
 
 }
 
+#popup-toggle {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+
+  background: #c0c0c0;
+  color: black;
+
+  border: 2px outset #ffffff;
+  padding: 3px 8px;
+
+  font-family: "MS Sans Serif", Arial, sans-serif;
+  font-size: 11px;
+
+  cursor: pointer;
+
+  z-index: 999999;
+}
+
+#popup-toggle:active {
+  border: 2px inset #ffffff;
+}
+
+#popup-toggle.disabled {
+  background: #808080;
+  color: #ffffff;
+}
+  
 </style>
 <link rel="icon" type="image/png" href="Imgs/eggyd.png">
 <img src="Imgs/cin.png" id="cereal-peek">
@@ -837,7 +865,8 @@ class="stamp-link mii-stamp">
 
 <div class="chaos-area" id="chaos-area"></div>
 
-
+<button id="popup-toggle">Disable Popups</button>
+  
 <div id="popup-container"></div>
 
 <script>
@@ -2147,7 +2176,44 @@ function makeDraggable(windowEl){
 }
 
 makeDraggable(document.getElementById("cowWindow"));
+ });
+}
 
+const popupContainer = document.getElementById("popup-container");
+const popupToggle = document.getElementById("popup-toggle");
+
+let popupsDisabled = localStorage.getItem("popupsDisabled") === "true";
+
+function updatePopupState() {
+  if (popupsDisabled) {
+    popupToggle.textContent = "Enable Popups";
+    popupToggle.classList.add("disabled");
+
+    // Remove any existing popups
+    popupContainer.innerHTML = "";
+
+    // Hide the popup container
+    popupContainer.style.display = "none";
+  } else {
+    popupToggle.textContent = "Disable Popups";
+    popupToggle.classList.remove("disabled");
+
+    popupContainer.style.display = "";
+  }
+}
+
+popupToggle.addEventListener("click", () => {
+  popupsDisabled = !popupsDisabled;
+
+  localStorage.setItem(
+    "popupsDisabled",
+    popupsDisabled
+  );
+
+  updatePopupState();
+});
+
+updatePopupState();  
 </script>
 <audio id="music"></audio>
 </body>
