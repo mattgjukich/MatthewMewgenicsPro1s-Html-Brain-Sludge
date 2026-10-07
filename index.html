@@ -1,109 +1,715 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>MatthewMewgenicsPro1's HTML Brain Sludge</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
-        body{
-            background:black;
-            color:lime;
-            font-family:"Comic Sans MS";
-            text-align:center;
-            margin-top:80px;
-        }
+<title>HTML Brain Sludge</title>
 
-        #main{
-            width:700px;
-            margin:auto;
+<link rel="icon" type="image/png" href="eggyd.png">
 
-            background:#111;
+<style>
 
-            border:5px ridge gray;
+* {
+    box-sizing: border-box;
+}
 
-            padding:20px;
+html, body {
+    margin: 0;
+    padding: 0;
+}
 
-            box-shadow:0 0 25px lime;
-        }
+body {
+    background:
+        repeating-linear-gradient(
+            45deg,
+            #eeeeee 0px,
+            #eeeeee 4px,
+            #ffffff 4px,
+            #ffffff 8px
+        );
 
-        h1{
-            color:yellow;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #111;
+    overflow-x: hidden;
+}
 
-            text-shadow:
-                2px 2px red,
-                4px 4px blue;
-        }
+/* =========================================
+   MAIN HERO
+   ========================================= */
 
-        a{
-            color:cyan;
-            font-size:24px;
-        }
+.hero {
+    width: 96%;
+    max-width: 1500px;
+    margin: 20px auto 0;
 
-        a:hover{
-            color:yellow;
-        }
+    min-height: 700px;
 
-        #warning{
-            color:red;
-            margin-top:20px;
-        }
+    display: flex;
+    align-items: center;
+    gap: 25px;
 
-        marquee{
-            color:orange;
-            margin-bottom:15px;
-        }
-    </style>
-    <link rel="icon" type="image/png" href="Neocities/Imgs/eggyd.png">
+    position: relative;
+}
+
+/* =========================================
+   SHELF
+   ========================================= */
+
+.shelf-area {
+    width: 53%;
+    position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.shelf-image {
+    width: 100%;
+    height: auto;
+
+    display: block;
+
+    user-select: none;
+}
+
+/*
+    CLICKABLE OBJECTS GO HERE.
+
+    Example:
+
+    <a href="mewgenics.html"
+       class="shelf-object steven">
+        <img src="Imgs/steven.png">
+    </a>
+*/
+
+.shelf-object {
+    position: absolute;
+
+    display: block;
+
+    cursor: pointer;
+
+    transition:
+        transform 0.15s ease,
+        filter 0.15s ease;
+}
+
+.shelf-object:hover {
+    transform: scale(1.08) rotate(-2deg);
+
+    filter:
+        drop-shadow(0 0 8px white)
+        drop-shadow(0 0 12px lime);
+}
+
+.shelf-object img {
+    display: block;
+    max-width: 100%;
+}
+
+
+/* =========================================
+   LOGO SIDE
+   ========================================= */
+
+.logo-area {
+    width: 47%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+}
+
+.logo {
+    width: 100%;
+    max-width: 700px;
+
+    height: auto;
+
+    display: block;
+
+    filter:
+        drop-shadow(6px 7px 0px #000);
+
+    transition:
+        transform 0.2s ease;
+}
+
+.logo:hover {
+    transform: rotate(-1deg) scale(1.015);
+}
+
+
+/* =========================================
+   CHAOS SECTION
+   ========================================= */
+
+.chaos-section {
+    width: 96%;
+    max-width: 1500px;
+
+    margin: 20px auto 60px;
+
+    border-top: 8px double #000;
+    padding-top: 20px;
+
+    position: relative;
+}
+
+
+/* =========================================
+   STUPID INTRO TEXT
+   ========================================= */
+
+.intro {
+    text-align: center;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 18px;
+
+    margin-bottom: 20px;
+}
+
+.intro span {
+    background: yellow;
+    padding: 2px 5px;
+
+    border: 2px solid black;
+}
+
+
+/* =========================================
+   BUTTON GARBAGE
+   ========================================= */
+
+.button-wall {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: 20px auto;
+}
+
+.old-button {
+    background: #c0c0c0;
+
+    color: black;
+
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    border-right: 3px solid #404040;
+    border-bottom: 3px solid #404040;
+
+    padding: 5px 12px;
+
+    font-family:
+        "MS Sans Serif",
+        Arial,
+        sans-serif;
+
+    font-size: 13px;
+
+    text-decoration: none;
+
+    cursor: pointer;
+}
+
+.old-button:active {
+    border-top: 3px solid #404040;
+    border-left: 3px solid #404040;
+    border-right: 3px solid white;
+    border-bottom: 3px solid white;
+}
+
+
+/* =========================================
+   RANDOM STUFF
+   ========================================= */
+
+.random-garbage {
+    min-height: 250px;
+
+    position: relative;
+
+    border: 4px ridge #888;
+
+    background: white;
+
+    padding: 20px;
+
+    overflow: hidden;
+}
+
+.random-garbage h2 {
+    margin-top: 0;
+
+    font-family: Impact, sans-serif;
+
+    font-size: 30px;
+
+    transform: rotate(-2deg);
+}
+
+.garbage-text {
+    font-family: "Comic Sans MS", cursive;
+
+    font-size: 16px;
+
+    max-width: 700px;
+}
+
+.blink {
+    animation: blink 0.8s steps(1) infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}
+
+
+/* =========================================
+   FAKE WINDOWS
+   ========================================= */
+
+.fake-window {
+    position: absolute;
+
+    width: 230px;
+
+    background: #c0c0c0;
+
+    border-top: 3px solid white;
+    border-left: 3px solid white;
+    border-right: 3px solid #333;
+    border-bottom: 3px solid #333;
+
+    box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
+
+    font-family:
+        "MS Sans Serif",
+        Arial,
+        sans-serif;
+
+    font-size: 12px;
+}
+
+.window-title {
+    background: navy;
+
+    color: white;
+
+    padding: 3px 5px;
+
+    font-weight: bold;
+}
+
+.window-content {
+    padding: 12px;
+}
+
+
+/* =========================================
+   POPUP CONTAINER
+   ========================================= */
+
+#popup-container {
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 99999;
+}
+
+
+/* =========================================
+   POPUP DISABLE BUTTON
+   ========================================= */
+
+#popup-toggle {
+    position: fixed;
+
+    bottom: 10px;
+    left: 10px;
+
+    z-index: 100000;
+
+    background: #c0c0c0;
+
+    color: black;
+
+    border-top: 2px solid white;
+    border-left: 2px solid white;
+    border-right: 2px solid #404040;
+    border-bottom: 2px solid #404040;
+
+    padding: 3px 8px;
+
+    font-family:
+        "MS Sans Serif",
+        Arial,
+        sans-serif;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+#popup-toggle.disabled {
+    background: #808080;
+    color: white;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 850px) {
+
+    .hero {
+        flex-direction: column;
+
+        min-height: auto;
+
+        margin-top: 10px;
+    }
+
+    .shelf-area,
+    .logo-area {
+        width: 100%;
+    }
+
+    .logo-area {
+        padding: 10px;
+    }
+
+    .chaos-section {
+        width: 94%;
+    }
+
+}
+
+</style>
 </head>
+
 
 <body>
 
-<div id="main">
 
-    <marquee>
-        WARNING: ENTERING THE HTML BRAIN SLUDGE MAY CAUSE CONFUSION
-    </marquee>
+<!-- ==================================================
+     MAIN HERO
+     ================================================== -->
 
-    <h1>
-        MatthewMewgenicsPro1's<br>
-        HTML Brain Sludge
-    </h1>
+<div class="hero">
 
-    <p>
-        Collection of current and future HTML projects.
-    </p>
-    
-    <hr>
 
-    <h2>Current Projects</h2>
+    <!-- ================= SHELF ================= -->
 
-    <p>
-        <a href="Neocities/index1.html">
-            Enter MatthewMewgenicsPro1's Awful Oddities
+    <div class="shelf-area">
+
+        <img
+            src="theshelf.jpg"
+            class="shelf-image"
+            alt="The HTML Brain Sludge shelf"
+        >
+
+
+        <!--
+        ==================================================
+        SHELF CLICKABLES
+
+        ADD OBJECTS HERE.
+
+        Example:
+
+        <a href="mewgenics.html"
+           class="shelf-object"
+           style="left: 70%; top: 35%; width: 80px;">
+
+            <img src="Imgs/steven.png" alt="???">
+
         </a>
-    </p>
 
-    <p>
-     <a href="Neocities/krackphone.html">
-         go on the very coolio phone
-      </a> 
-    </p>
-    
-    <br>
+        ==================================================
+        -->
 
-    <img src="uc.gif" width="200">
+    </div>
 
-    <p id="warning">
-        Additional experiments currently under construction.
-    </p>
 
-    <hr>
 
-    <small>
-        I was the Krackkid<br>
-        Last Updated: August 22nd 2026
-    </small>
+    <!-- ================= LOGO ================= -->
+
+    <div class="logo-area">
+
+        <img
+            src="logotake1.gif"
+            class="logo"
+            alt="HTML Brain Sludge"
+        >
+
+    </div>
 
 </div>
+
+
+
+<!-- ==================================================
+     CHAOS BELOW
+     ================================================== -->
+
+<section class="chaos-section">
+
+
+    <div class="intro">
+
+        <span>
+            welcome to the HTML brain sludge containment facility
+        </span>
+
+        <br><br>
+
+        blah text and random shit and buttons and blinkies
+        and stamps and widgets
+
+        <br>
+
+        <span class="blink">
+            WARNING: WEBSITE MAY CONTAIN WEBSITE
+        </span>
+
+    </div>
+
+
+
+    <!-- ================= BUTTONS ================= -->
+
+    <div class="button-wall">
+
+        <a href="#" class="old-button">
+            ENTER THE KRACKHOUSE
+        </a>
+
+        <a href="#" class="old-button">
+            RANDOM SHIT
+        </a>
+
+        <a href="#" class="old-button">
+            GAMES
+        </a>
+
+        <a href="#" class="old-button">
+            PROJECTS
+        </a>
+
+        <a href="#" class="old-button">
+            ABOUT
+        </a>
+
+        <a href="#" class="old-button">
+            ????
+        </a>
+
+    </div>
+
+
+
+    <!-- ================= RANDOM GARBAGE ================= -->
+
+    <div class="random-garbage">
+
+        <h2>
+            ✦ WELCOME TO THE SLUDGE ZONE ✦
+        </h2>
+
+        <p class="garbage-text">
+
+            This website contains HTML.
+
+            <br><br>
+
+            Nobody knows why.
+
+            <br>
+
+            Nobody knows how.
+
+            <br>
+
+            It is probably too late to stop it.
+
+            <br><br>
+
+            <b>
+                PLEASE ENJOY THE WEBSITE.
+            </b>
+
+        </p>
+
+
+        <div
+            class="fake-window"
+            style="
+                right: 30px;
+                top: 35px;
+                transform: rotate(3deg);
+            "
+        >
+
+            <div class="window-title">
+                brain.exe
+            </div>
+
+            <div class="window-content">
+
+                ERROR:
+
+                <br><br>
+
+                Brain sludge detected.
+
+                <br><br>
+
+                [ OK ]
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+</section>
+
+
+
+<!-- ==================================================
+     POPUP SYSTEM
+     ================================================== -->
+
+<div id="popup-container"></div>
+
+<button id="popup-toggle">
+    Disable Popups
+</button>
+
+
+
+<script>
+
+/* =========================================
+   POPUP ENABLE / DISABLE
+   ========================================= */
+
+const popupContainer =
+    document.getElementById("popup-container");
+
+const popupToggle =
+    document.getElementById("popup-toggle");
+
+
+let popupsDisabled =
+    localStorage.getItem("popupsDisabled") === "true";
+
+
+function updatePopupState() {
+
+    if (popupsDisabled) {
+
+        popupToggle.textContent =
+            "Enable Popups";
+
+        popupToggle.classList.add("disabled");
+
+        popupContainer.innerHTML = "";
+
+        popupContainer.style.display =
+            "none";
+
+    } else {
+
+        popupToggle.textContent =
+            "Disable Popups";
+
+        popupToggle.classList.remove("disabled");
+
+        popupContainer.style.display =
+            "";
+
+    }
+
+}
+
+
+popupToggle.addEventListener("click", () => {
+
+    popupsDisabled =
+        !popupsDisabled;
+
+    localStorage.setItem(
+        "popupsDisabled",
+        popupsDisabled
+    );
+
+    updatePopupState();
+
+});
+
+
+updatePopupState();
+
+
+/* =========================================
+   RANDOM SHELF OBJECT EXAMPLE
+   ========================================= */
+
+/*
+   When you're ready, we can add things like:
+
+   Steven
+   Isaac item
+   Mewgenics stuff
+   your old site characters
+   weird PNGs
+   project icons
+   secret buttons
+
+   directly onto the photograph.
+
+   Example:
+
+   const steven = document.createElement("a");
+
+   steven.href = "mewgenics.html";
+   steven.className = "shelf-object";
+
+   steven.style.left = "70%";
+   steven.style.top = "35%";
+   steven.style.width = "80px";
+
+   steven.innerHTML =
+       '<img src="Imgs/steven.png">';
+
+   document.querySelector(".shelf-area")
+       .appendChild(steven);
+*/
+
+
+</script>
 
 </body>
 </html>
