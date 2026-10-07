@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,395 +11,203 @@
 
 <style>
 
-* {
-    box-sizing: border-box;
-}
-
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
-}
 
-body {
-    background:
-        repeating-linear-gradient(
-            45deg,
-            #eeeeee 0px,
-            #eeeeee 4px,
-            #ffffff 4px,
-            #ffffff 8px
-        );
-
-    font-family: Arial, Helvetica, sans-serif;
-    color: #111;
-    overflow-x: hidden;
-}
-
-/* =========================================
-   MAIN HERO
-   ========================================= */
-
-.hero {
-    width: 96%;
-    max-width: 1500px;
-    margin: 20px auto 0;
-
-    min-height: 700px;
-
-    display: flex;
-    align-items: center;
-    gap: 25px;
-
-    position: relative;
-}
-
-/* =========================================
-   SHELF
-   ========================================= */
-
-.shelf-area {
-    width: 53%;
-    position: relative;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.shelf-image {
     width: 100%;
+    height: 100%;
+
+    overflow: hidden;
+
+    background: #000;
+}
+
+
+/* =====================================================
+   THE ENTIRE HOMEPAGE
+   ===================================================== */
+
+.room {
+    position: relative;
+
+    width: 100vw;
+    height: 100vh;
+
+    overflow: hidden;
+}
+
+
+/* =====================================================
+   YOUR ACTUAL ROOM PHOTO
+   ===================================================== */
+
+.room-photo {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    width: 100%;
+    height: 100%;
+
+    transform: translate(-50%, -50%);
+
+    object-fit: cover;
+
+    user-select: none;
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   LOGO
+   ===================================================== */
+
+/*
+   This sits ON TOP OF THE WALL in the photograph.
+
+   You'll probably adjust these numbers after seeing
+   it in the browser.
+*/
+
+.logo {
+    position: absolute;
+
+    width: 38%;
+
+    max-width: 650px;
+
+    right: 5%;
+    top: 18%;
+
     height: auto;
 
-    display: block;
+    z-index: 10;
+
+    pointer-events: none;
 
     user-select: none;
 }
 
-/*
-    CLICKABLE OBJECTS GO HERE.
 
-    Example:
-
-    <a href="mewgenics.html"
-       class="shelf-object steven">
-        <img src="Imgs/steven.png">
-    </a>
-*/
+/* =====================================================
+   CLICKABLE SHELF OBJECTS
+   ===================================================== */
 
 .shelf-object {
     position: absolute;
 
     display: block;
 
+    z-index: 20;
+
     cursor: pointer;
+
+    /*
+       Makes the clickable objects feel like actual
+       things sitting on the shelf.
+    */
 
     transition:
         transform 0.15s ease,
         filter 0.15s ease;
 }
 
-.shelf-object:hover {
-    transform: scale(1.08) rotate(-2deg);
-
-    filter:
-        drop-shadow(0 0 8px white)
-        drop-shadow(0 0 12px lime);
-}
 
 .shelf-object img {
     display: block;
-    max-width: 100%;
-}
 
-
-/* =========================================
-   LOGO SIDE
-   ========================================= */
-
-.logo-area {
-    width: 47%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    position: relative;
-}
-
-.logo {
     width: 100%;
-    max-width: 700px;
-
     height: auto;
 
-    display: block;
+    user-select: none;
+}
+
+
+/* Hover effect */
+
+.shelf-object:hover {
+
+    transform:
+        scale(1.08)
+        rotate(-2deg);
 
     filter:
-        drop-shadow(6px 7px 0px #000);
-
-    transition:
-        transform 0.2s ease;
-}
-
-.logo:hover {
-    transform: rotate(-1deg) scale(1.015);
+        drop-shadow(0 0 5px white)
+        drop-shadow(0 0 12px lime);
 }
 
 
-/* =========================================
-   CHAOS SECTION
-   ========================================= */
+/* =====================================================
+   EXAMPLE OBJECT POSITIONS
+   ===================================================== */
 
-.chaos-section {
-    width: 96%;
-    max-width: 1500px;
+/*
+   THESE ARE JUST STARTING POSITIONS.
 
-    margin: 20px auto 60px;
+   We'll move them around after you actually make
+   the objects.
+*/
 
-    border-top: 8px double #000;
-    padding-top: 20px;
 
-    position: relative;
+.steven {
+
+    /*
+       x position
+    */
+    left: 18%;
+
+    /*
+       y position
+    */
+    top: 48%;
+
+    width: 90px;
 }
 
 
-/* =========================================
-   STUPID INTRO TEXT
-   ========================================= */
+.isaac {
 
-.intro {
-    text-align: center;
+    left: 28%;
+    top: 60%;
 
-    font-family: "Courier New", monospace;
-
-    font-size: 18px;
-
-    margin-bottom: 20px;
-}
-
-.intro span {
-    background: yellow;
-    padding: 2px 5px;
-
-    border: 2px solid black;
+    width: 75px;
 }
 
 
-/* =========================================
-   BUTTON GARBAGE
-   ========================================= */
+.computer {
 
-.button-wall {
-    display: flex;
+    left: 10%;
+    top: 25%;
 
-    flex-wrap: wrap;
-
-    justify-content: center;
-
-    gap: 8px;
-
-    margin: 20px auto;
-}
-
-.old-button {
-    background: #c0c0c0;
-
-    color: black;
-
-    border-top: 3px solid white;
-    border-left: 3px solid white;
-    border-right: 3px solid #404040;
-    border-bottom: 3px solid #404040;
-
-    padding: 5px 12px;
-
-    font-family:
-        "MS Sans Serif",
-        Arial,
-        sans-serif;
-
-    font-size: 13px;
-
-    text-decoration: none;
-
-    cursor: pointer;
-}
-
-.old-button:active {
-    border-top: 3px solid #404040;
-    border-left: 3px solid #404040;
-    border-right: 3px solid white;
-    border-bottom: 3px solid white;
+    width: 100px;
 }
 
 
-/* =========================================
-   RANDOM STUFF
-   ========================================= */
-
-.random-garbage {
-    min-height: 250px;
-
-    position: relative;
-
-    border: 4px ridge #888;
-
-    background: white;
-
-    padding: 20px;
-
-    overflow: hidden;
-}
-
-.random-garbage h2 {
-    margin-top: 0;
-
-    font-family: Impact, sans-serif;
-
-    font-size: 30px;
-
-    transform: rotate(-2deg);
-}
-
-.garbage-text {
-    font-family: "Comic Sans MS", cursive;
-
-    font-size: 16px;
-
-    max-width: 700px;
-}
-
-.blink {
-    animation: blink 0.8s steps(1) infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0;
-    }
-}
-
-
-/* =========================================
-   FAKE WINDOWS
-   ========================================= */
-
-.fake-window {
-    position: absolute;
-
-    width: 230px;
-
-    background: #c0c0c0;
-
-    border-top: 3px solid white;
-    border-left: 3px solid white;
-    border-right: 3px solid #333;
-    border-bottom: 3px solid #333;
-
-    box-shadow: 8px 8px 0 rgba(0,0,0,0.3);
-
-    font-family:
-        "MS Sans Serif",
-        Arial,
-        sans-serif;
-
-    font-size: 12px;
-}
-
-.window-title {
-    background: navy;
-
-    color: white;
-
-    padding: 3px 5px;
-
-    font-weight: bold;
-}
-
-.window-content {
-    padding: 12px;
-}
-
-
-/* =========================================
-   POPUP CONTAINER
-   ========================================= */
-
-#popup-container {
-    position: fixed;
-
-    inset: 0;
-
-    pointer-events: none;
-
-    z-index: 99999;
-}
-
-
-/* =========================================
-   POPUP DISABLE BUTTON
-   ========================================= */
-
-#popup-toggle {
-    position: fixed;
-
-    bottom: 10px;
-    left: 10px;
-
-    z-index: 100000;
-
-    background: #c0c0c0;
-
-    color: black;
-
-    border-top: 2px solid white;
-    border-left: 2px solid white;
-    border-right: 2px solid #404040;
-    border-bottom: 2px solid #404040;
-
-    padding: 3px 8px;
-
-    font-family:
-        "MS Sans Serif",
-        Arial,
-        sans-serif;
-
-    font-size: 11px;
-
-    cursor: pointer;
-}
-
-#popup-toggle.disabled {
-    background: #808080;
-    color: white;
-}
-
-
-/* =========================================
+/* =====================================================
    MOBILE
-   ========================================= */
+   ===================================================== */
 
-@media (max-width: 850px) {
+@media (max-width: 700px) {
 
-    .hero {
-        flex-direction: column;
+    .room-photo {
 
-        min-height: auto;
+        /*
+           On phones, cover can crop the shelf heavily.
+           This keeps the image centered.
+        */
 
-        margin-top: 10px;
+        object-position: center;
     }
 
-    .shelf-area,
-    .logo-area {
-        width: 100%;
-    }
+    .logo {
 
-    .logo-area {
-        padding: 10px;
-    }
+        width: 45%;
 
-    .chaos-section {
-        width: 94%;
+        right: 3%;
+        top: 15%;
     }
 
 }
@@ -410,306 +219,86 @@ body {
 <body>
 
 
-<!-- ==================================================
-     MAIN HERO
-     ================================================== -->
-
-<div class="hero">
+<main class="room">
 
 
-    <!-- ================= SHELF ================= -->
+    <!-- =================================================
+         THE ACTUAL ROOM
+         ================================================= -->
 
-    <div class="shelf-area">
-
-        <img
-            src="theshelf.jpg"
-            class="shelf-image"
-            alt="The HTML Brain Sludge shelf"
-        >
-
-
-        <!--
-        ==================================================
-        SHELF CLICKABLES
-
-        ADD OBJECTS HERE.
-
-        Example:
-
-        <a href="mewgenics.html"
-           class="shelf-object"
-           style="left: 70%; top: 35%; width: 80px;">
-
-            <img src="Imgs/steven.png" alt="???">
-
-        </a>
-
-        ==================================================
-        -->
-
-    </div>
+    <img
+        src="theshelf.jpg"
+        class="room-photo"
+        alt=""
+    >
 
 
+    <!-- =================================================
+         LOGO ON THE WALL
+         ================================================= -->
 
-    <!-- ================= LOGO ================= -->
+    <img
+        src="logotake1.gif"
+        class="logo"
+        alt="HTML Brain Sludge"
+    >
 
-    <div class="logo-area">
+
+    <!-- =================================================
+         SHELF OBJECTS
+         
+         These are the navigation.
+         No nav bar required.
+         ================================================= -->
+
+
+    <!-- Mewgenics -->
+
+    <a
+        href="mewgenics.html"
+        class="shelf-object steven"
+    >
 
         <img
-            src="logotake1.gif"
-            class="logo"
-            alt="HTML Brain Sludge"
+            src="Imgs/steven.png"
+            alt="Mewgenics"
         >
 
-    </div>
-
-</div>
+    </a>
 
 
+    <!-- Isaac -->
 
-<!-- ==================================================
-     CHAOS BELOW
-     ================================================== -->
+    <a
+        href="isaac.html"
+        class="shelf-object isaac"
+    >
 
-<section class="chaos-section">
-
-
-    <div class="intro">
-
-        <span>
-            welcome to the HTML brain sludge containment facility
-        </span>
-
-        <br><br>
-
-        blah text and random shit and buttons and blinkies
-        and stamps and widgets
-
-        <br>
-
-        <span class="blink">
-            WARNING: WEBSITE MAY CONTAIN WEBSITE
-        </span>
-
-    </div>
-
-
-
-    <!-- ================= BUTTONS ================= -->
-
-    <div class="button-wall">
-
-        <a href="#" class="old-button">
-            ENTER THE KRACKHOUSE
-        </a>
-
-        <a href="#" class="old-button">
-            RANDOM SHIT
-        </a>
-
-        <a href="#" class="old-button">
-            GAMES
-        </a>
-
-        <a href="#" class="old-button">
-            PROJECTS
-        </a>
-
-        <a href="#" class="old-button">
-            ABOUT
-        </a>
-
-        <a href="#" class="old-button">
-            ????
-        </a>
-
-    </div>
-
-
-
-    <!-- ================= RANDOM GARBAGE ================= -->
-
-    <div class="random-garbage">
-
-        <h2>
-            ✦ WELCOME TO THE SLUDGE ZONE ✦
-        </h2>
-
-        <p class="garbage-text">
-
-            This website contains HTML.
-
-            <br><br>
-
-            Nobody knows why.
-
-            <br>
-
-            Nobody knows how.
-
-            <br>
-
-            It is probably too late to stop it.
-
-            <br><br>
-
-            <b>
-                PLEASE ENJOY THE WEBSITE.
-            </b>
-
-        </p>
-
-
-        <div
-            class="fake-window"
-            style="
-                right: 30px;
-                top: 35px;
-                transform: rotate(3deg);
-            "
+        <img
+            src="Imgs/isaac.png"
+            alt="The Binding of Isaac"
         >
 
-            <div class="window-title">
-                brain.exe
-            </div>
-
-            <div class="window-content">
-
-                ERROR:
-
-                <br><br>
-
-                Brain sludge detected.
-
-                <br><br>
-
-                [ OK ]
-
-            </div>
-
-        </div>
+    </a>
 
 
-    </div>
+    <!-- Another project -->
+
+    <a
+        href="projects.html"
+        class="shelf-object computer"
+    >
+
+        <img
+            src="Imgs/computer.png"
+            alt="Projects"
+        >
+
+    </a>
 
 
-</section>
+</main>
 
-
-
-<!-- ==================================================
-     POPUP SYSTEM
-     ================================================== -->
-
-<div id="popup-container"></div>
-
-<button id="popup-toggle">
-    Disable Popups
-</button>
-
-
-
-<script>
-
-/* =========================================
-   POPUP ENABLE / DISABLE
-   ========================================= */
-
-const popupContainer =
-    document.getElementById("popup-container");
-
-const popupToggle =
-    document.getElementById("popup-toggle");
-
-
-let popupsDisabled =
-    localStorage.getItem("popupsDisabled") === "true";
-
-
-function updatePopupState() {
-
-    if (popupsDisabled) {
-
-        popupToggle.textContent =
-            "Enable Popups";
-
-        popupToggle.classList.add("disabled");
-
-        popupContainer.innerHTML = "";
-
-        popupContainer.style.display =
-            "none";
-
-    } else {
-
-        popupToggle.textContent =
-            "Disable Popups";
-
-        popupToggle.classList.remove("disabled");
-
-        popupContainer.style.display =
-            "";
-
-    }
-
-}
-
-
-popupToggle.addEventListener("click", () => {
-
-    popupsDisabled =
-        !popupsDisabled;
-
-    localStorage.setItem(
-        "popupsDisabled",
-        popupsDisabled
-    );
-
-    updatePopupState();
-
-});
-
-
-updatePopupState();
-
-
-/* =========================================
-   RANDOM SHELF OBJECT EXAMPLE
-   ========================================= */
-
-/*
-   When you're ready, we can add things like:
-
-   Steven
-   Isaac item
-   Mewgenics stuff
-   your old site characters
-   weird PNGs
-   project icons
-   secret buttons
-
-   directly onto the photograph.
-
-   Example:
-
-   const steven = document.createElement("a");
-
-   steven.href = "mewgenics.html";
-   steven.className = "shelf-object";
-
-   steven.style.left = "70%";
-   steven.style.top = "35%";
-   steven.style.width = "80px";
-
-   steven.innerHTML =
-       '<img src="Imgs/steven.png">';
-
-   document.querySelector(".shelf-area")
-       .appendChild(steven);
-*/
-
-
-</script>
 
 </body>
 </html>
