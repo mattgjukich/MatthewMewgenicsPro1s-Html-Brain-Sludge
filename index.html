@@ -28,291 +28,138 @@ body {
 }
 
 
-/* =====================================================
-   TOP ROOM / SHELF AREA
-   ===================================================== */
+/* =========================
+   MAIN SHELF / HERO
+   ========================= */
 
 .room {
-
     position: relative;
-
     width: 100%;
+    min-height: 100vh;
 
-    /*
-       This controls how much of the screen the
-       photograph takes up before the rest of the
-       website begins.
-    */
-
-    min-height: 720px;
-
-    background: #ddd;
+    /* The wall behind everything */
+    background: #d9d9d9;
 
     overflow: hidden;
 }
 
-
-/* =====================================================
-   SHELF PHOTOGRAPH
-   ===================================================== */
-
+/* THE ACTUAL PHOTO */
 .room-photo {
+    display: block;
+
+    width: 100%;
+    height: 100vh;
+
+    object-fit: contain;
+    object-position: left center;
 
     position: absolute;
-
     left: 0;
     top: 0;
 
-    width: 100%;
-    height: 100%;
-
-    /*
-       IMPORTANT:
-       Do NOT crop the photograph.
-    */
-
-    object-fit: contain;
-
-    object-position: left center;
-
-    user-select: none;
-
-    pointer-events: none;
+    z-index: 1;
 }
 
-
-/* =====================================================
-   LOGO ON THE WALL
-   ===================================================== */
-
+/* BIG LOGO ON THE EMPTY WALL */
 .logo {
-
     position: absolute;
 
     /*
-       BIGGER THAN BEFORE
+       Bigger than before, but still leaves the
+       shelf as the main thing you notice.
     */
-
-    width: 34%;
-
-    max-width: 650px;
-
-    /*
-       Position on the empty wall.
-       Adjust these if necessary.
-    */
-
-    right: 5%;
-
-    top: 20%;
+    width: min(28vw, 620px);
 
     height: auto;
 
-    z-index: 10;
+    right: 5vw;
+    top: 12vh;
 
-    user-select: none;
+    z-index: 5;
 
     pointer-events: none;
 }
 
-
-/* =====================================================
-   CLICKABLE SHELF OBJECTS
-   ===================================================== */
+/* =========================
+   STUFF THAT WILL EVENTUALLY
+   SIT ON THE REAL SHELF
+   ========================= */
 
 .shelf-object {
-
     position: absolute;
-
-    z-index: 20;
+    z-index: 10;
 
     display: block;
-
-    cursor: pointer;
-
-    transition:
-        transform 0.15s ease,
-        filter 0.15s ease;
 }
-
 
 .shelf-object img {
-
     display: block;
-
     width: 100%;
     height: auto;
-
-    user-select: none;
 }
 
-
-.shelf-object:hover {
-
-    transform:
-        scale(1.08)
-        rotate(-2deg);
-
-    filter:
-        drop-shadow(0 0 5px white)
-        drop-shadow(0 0 10px lime);
-}
-
-
-/* =====================================================
-   EXAMPLE SHELF OBJECT POSITIONS
-   ===================================================== */
-
-/*
-   These are ONLY examples.
-
-   Once we know the actual pages you want,
-   we can put the real objects here.
-*/
-
-
-.projects-object {
-
-    left: 17%;
-
-    top: 28%;
-
-    width: 90px;
-}
-
-
-.krackphone-object {
-
-    left: 28%;
-
-    top: 50%;
-
-    width: 80px;
-}
-
-
-/* =====================================================
-   STUFF BELOW THE SHELF
-   ===================================================== */
+/* =========================
+   BELOW THE PHOTO
+   ========================= */
 
 .below-shelf {
-
     position: relative;
 
-    width: 100%;
+    min-height: 1000px;
 
-    min-height: 500px;
+    padding: 50px 30px;
 
+    /*
+       Balatro-ish background:
+       dark base + subtle radial glow +
+       diagonal pattern
+    */
     background:
-
+        radial-gradient(
+            circle at 50% 20%,
+            rgba(255,255,255,0.12),
+            transparent 35%
+        ),
         repeating-linear-gradient(
-            45deg,
-            #eeeeee 0px,
-            #eeeeee 4px,
-            #ffffff 4px,
-            #ffffff 8px
+            135deg,
+            #17131f 0px,
+            #17131f 8px,
+            #21192b 8px,
+            #21192b 10px
         );
 
-    border-top: 8px double #000;
-
-    padding: 30px 20px 80px;
+    color: white;
 
     text-align: center;
+
+    border-top: 4px solid #111;
+
+    z-index: 20;
 }
 
+.below-shelf h2 {
+    font-family: monospace;
+    font-size: 28px;
+    margin-bottom: 30px;
 
-/* =====================================================
-   OLD WEB TEXT
-   ===================================================== */
-
-.intro {
-
-    font-family: "Courier New", monospace;
-
-    font-size: 17px;
-
-    margin-bottom: 25px;
+    text-shadow:
+        2px 2px 0 #000,
+        -1px -1px 0 #000;
 }
 
+/* Blinkies / stamps area */
 
-.blink {
-
-    animation:
-        blink 0.8s steps(1) infinite;
-}
-
-
-@keyframes blink {
-
-    50% {
-        opacity: 0;
-    }
-
-}
-
-
-/* =====================================================
-   BLINKIES / STAMPS AREA
-   ===================================================== */
-
-.web-garbage {
+.chaos-content {
+    max-width: 1400px;
+    margin: auto;
 
     display: flex;
-
     flex-wrap: wrap;
 
     justify-content: center;
-
     align-items: center;
 
-    gap: 10px;
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-}
-
-
-/*
-   Anything you put in here later:
-
-   <img src="gifs/blinkie.gif">
-   <img src="stamp.png">
-
-   etc.
-*/
-
-
-.web-garbage img {
-
-    max-width: 180px;
-
-    height: auto;
-}
-
-
-/* =====================================================
-   MOBILE
-   ===================================================== */
-
-@media (max-width: 800px) {
-
-    .room {
-
-        min-height: 600px;
-
-    }
-
-    .logo {
-
-        width: 42%;
-
-        right: 4%;
-
-        top: 20%;
-
-    }
-
+    gap: 15px;
 }
 
 </style>
@@ -321,106 +168,66 @@ body {
 
 <body>
 
+    <!-- =========================
+         THE SHELF IS THE HOMEPAGE
+         ========================= -->
 
-<!-- =====================================================
-     SHELF / HERO
-     ===================================================== -->
+    <main class="room">
 
-<section class="room">
-
-
-    <!-- REAL PHOTOGRAPH -->
-
-    <img
-        src="theshelf.jpg"
-        class="room-photo"
-        alt=""
-    >
-
-
-    <!-- LOGO ON WALL -->
-
-    <img
-        src="logotake1.gif"
-        class="logo"
-        alt="HTML Brain Sludge"
-    >
-
-
-    <!-- =================================================
-         SHELF NAVIGATION
-
-         PUT YOUR ACTUAL EXISTING PAGES HERE.
-         ================================================= -->
-
-
-    <!-- EXAMPLE:
-
-    <a
-        href="YOUR-EXISTING-PAGE.html"
-        class="shelf-object projects-object"
-    >
-
+        <!-- YOUR ACTUAL PHOTO -->
         <img
-            src="YOUR-OBJECT.png"
-            alt="Projects"
+            src="theshelf.jpg"
+            class="room-photo"
+            alt="The HTML Brain Sludge shelf"
         >
 
-    </a>
-
-    -->
-
-
-</section>
-
-
-
-<!-- =====================================================
-     BELOW THE SHELF
-     ===================================================== -->
-
-<section class="below-shelf">
-
-
-    <div class="intro">
-
-        <span class="blink">
-            HTML BRAIN SLUDGE HAS ESCAPED
-        </span>
-
-        <br><br>
-
-        blah text and random shit and blinkies
-        and stamps and widgets
-
-    </div>
-
-
-
-    <!-- =================================================
-         BLINKIES / STAMPS / RANDOM WEB CRAP
-         ================================================= -->
-
-    <div class="web-garbage">
+        <!-- LOGO ON THE WALL -->
+        <img
+            src="logotake1.gif"
+            class="logo"
+            alt="MatthewMewgenicsPro1s Brain Sludge"
+        >
 
 
         <!--
-            PUT YOUR EXISTING BLINKIES / STAMPS HERE.
+        =====================================================
+        ACTUAL CLICKABLE SHELF OBJECTS GO HERE
 
-            Example:
+        Example:
 
-            <img src="bi.webp">
-            <img src="10.gif">
-            <img src="eatpant.png">
+        <a href="whatever-page-you-actually-have.html"
+           class="shelf-object"
+           style="left: 20%; top: 50%; width: 120px;">
 
+            <img src="whatever.png" alt="...">
+
+        </a>
+
+        =====================================================
         -->
 
+    </main>
 
-    </div>
 
+    <!-- =========================
+         EVERYTHING AFTER SHELF
+         ========================= -->
 
-</section>
+    <section class="below-shelf">
 
+        <h2>HTML BRAIN SLUDGE HAS ESCAPED</h2>
+
+        <div class="chaos-content">
+
+            <p>
+                blah text and random shit and blinkies and stamps and widgets
+            </p>
+
+            <!-- YOUR EXISTING BLINKIES/STAMPS GO HERE -->
+
+        </div>
+
+    </section>
 
 </body>
 
