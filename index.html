@@ -126,7 +126,6 @@ body {
 /* =========================================================
    DVD LOGO / TITLE
    ========================================================= */
-
 .logo {
 
     position: absolute;
@@ -142,16 +141,34 @@ body {
 
     z-index: 10;
 
-    /*
-       Slight shitty-DVD-menu glow
-    */
-
-    filter:
-        drop-shadow(0 0 8px rgba(255,255,255,0.25))
-        drop-shadow(5px 5px 0 #000);
+    animation: logoSludge 4s ease-in-out infinite;
 
 }
 
+   @keyframes logoSludge {
+
+    0%,
+    100% {
+
+        transform: translateX(-50%) translateY(0px) rotate(-1deg);
+
+        filter:
+            drop-shadow(0 0 5px rgba(255,255,255,0.20))
+            drop-shadow(5px 5px 0 #000);
+
+    }
+
+    50% {
+
+        transform: translateX(-50%) translateY(-6px) rotate(1deg);
+
+        filter:
+            drop-shadow(0 0 14px rgba(255,255,255,0.35))
+            drop-shadow(7px 7px 0 #000);
+
+    }
+
+}
 
 /* =========================================================
    GIANT FAKE DVD DISC
