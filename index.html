@@ -11,84 +11,108 @@
 
 <style>
 
+* {
+    box-sizing: border-box;
+}
+
 html,
 body {
     margin: 0;
     padding: 0;
 
-    width: 100%;
-    height: 100%;
+    background: #111;
 
-    overflow: hidden;
+    font-family: Arial, Helvetica, sans-serif;
 
-    background: #000;
+    overflow-x: hidden;
 }
 
 
 /* =====================================================
-   THE ENTIRE HOMEPAGE
+   TOP ROOM / SHELF AREA
    ===================================================== */
 
 .room {
+
     position: relative;
 
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+
+    /*
+       This controls how much of the screen the
+       photograph takes up before the rest of the
+       website begins.
+    */
+
+    min-height: 720px;
+
+    background: #ddd;
 
     overflow: hidden;
 }
 
 
 /* =====================================================
-   YOUR ACTUAL ROOM PHOTO
+   SHELF PHOTOGRAPH
    ===================================================== */
 
 .room-photo {
+
     position: absolute;
 
-    left: 50%;
-    top: 50%;
+    left: 0;
+    top: 0;
 
     width: 100%;
     height: 100%;
 
-    transform: translate(-50%, -50%);
+    /*
+       IMPORTANT:
+       Do NOT crop the photograph.
+    */
 
-    object-fit: cover;
+    object-fit: contain;
+
+    object-position: left center;
 
     user-select: none;
+
     pointer-events: none;
 }
 
 
 /* =====================================================
-   LOGO
+   LOGO ON THE WALL
    ===================================================== */
 
-/*
-   This sits ON TOP OF THE WALL in the photograph.
-
-   You'll probably adjust these numbers after seeing
-   it in the browser.
-*/
-
 .logo {
+
     position: absolute;
 
-    width: 38%;
+    /*
+       BIGGER THAN BEFORE
+    */
+
+    width: 34%;
 
     max-width: 650px;
 
+    /*
+       Position on the empty wall.
+       Adjust these if necessary.
+    */
+
     right: 5%;
-    top: 18%;
+
+    top: 20%;
 
     height: auto;
 
     z-index: 10;
 
-    pointer-events: none;
-
     user-select: none;
+
+    pointer-events: none;
 }
 
 
@@ -97,18 +121,14 @@ body {
    ===================================================== */
 
 .shelf-object {
-    position: absolute;
 
-    display: block;
+    position: absolute;
 
     z-index: 20;
 
-    cursor: pointer;
+    display: block;
 
-    /*
-       Makes the clickable objects feel like actual
-       things sitting on the shelf.
-    */
+    cursor: pointer;
 
     transition:
         transform 0.15s ease,
@@ -117,6 +137,7 @@ body {
 
 
 .shelf-object img {
+
     display: block;
 
     width: 100%;
@@ -125,8 +146,6 @@ body {
     user-select: none;
 }
 
-
-/* Hover effect */
 
 .shelf-object:hover {
 
@@ -136,53 +155,139 @@ body {
 
     filter:
         drop-shadow(0 0 5px white)
-        drop-shadow(0 0 12px lime);
+        drop-shadow(0 0 10px lime);
 }
 
 
 /* =====================================================
-   EXAMPLE OBJECT POSITIONS
+   EXAMPLE SHELF OBJECT POSITIONS
    ===================================================== */
 
 /*
-   THESE ARE JUST STARTING POSITIONS.
+   These are ONLY examples.
 
-   We'll move them around after you actually make
-   the objects.
+   Once we know the actual pages you want,
+   we can put the real objects here.
 */
 
 
-.steven {
+.projects-object {
 
-    /*
-       x position
-    */
-    left: 18%;
+    left: 17%;
 
-    /*
-       y position
-    */
-    top: 48%;
+    top: 28%;
 
     width: 90px;
 }
 
 
-.isaac {
+.krackphone-object {
 
     left: 28%;
-    top: 60%;
 
-    width: 75px;
+    top: 50%;
+
+    width: 80px;
 }
 
 
-.computer {
+/* =====================================================
+   STUFF BELOW THE SHELF
+   ===================================================== */
 
-    left: 10%;
-    top: 25%;
+.below-shelf {
 
-    width: 100px;
+    position: relative;
+
+    width: 100%;
+
+    min-height: 500px;
+
+    background:
+
+        repeating-linear-gradient(
+            45deg,
+            #eeeeee 0px,
+            #eeeeee 4px,
+            #ffffff 4px,
+            #ffffff 8px
+        );
+
+    border-top: 8px double #000;
+
+    padding: 30px 20px 80px;
+
+    text-align: center;
+}
+
+
+/* =====================================================
+   OLD WEB TEXT
+   ===================================================== */
+
+.intro {
+
+    font-family: "Courier New", monospace;
+
+    font-size: 17px;
+
+    margin-bottom: 25px;
+}
+
+
+.blink {
+
+    animation:
+        blink 0.8s steps(1) infinite;
+}
+
+
+@keyframes blink {
+
+    50% {
+        opacity: 0;
+    }
+
+}
+
+
+/* =====================================================
+   BLINKIES / STAMPS AREA
+   ===================================================== */
+
+.web-garbage {
+
+    display: flex;
+
+    flex-wrap: wrap;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
+
+
+/*
+   Anything you put in here later:
+
+   <img src="gifs/blinkie.gif">
+   <img src="stamp.png">
+
+   etc.
+*/
+
+
+.web-garbage img {
+
+    max-width: 180px;
+
+    height: auto;
 }
 
 
@@ -190,24 +295,22 @@ body {
    MOBILE
    ===================================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 800px) {
 
-    .room-photo {
+    .room {
 
-        /*
-           On phones, cover can crop the shelf heavily.
-           This keeps the image centered.
-        */
+        min-height: 600px;
 
-        object-position: center;
     }
 
     .logo {
 
-        width: 45%;
+        width: 42%;
 
-        right: 3%;
-        top: 15%;
+        right: 4%;
+
+        top: 20%;
+
     }
 
 }
@@ -219,12 +322,14 @@ body {
 <body>
 
 
-<main class="room">
+<!-- =====================================================
+     SHELF / HERO
+     ===================================================== -->
+
+<section class="room">
 
 
-    <!-- =================================================
-         THE ACTUAL ROOM
-         ================================================= -->
+    <!-- REAL PHOTOGRAPH -->
 
     <img
         src="theshelf.jpg"
@@ -233,9 +338,7 @@ body {
     >
 
 
-    <!-- =================================================
-         LOGO ON THE WALL
-         ================================================= -->
+    <!-- LOGO ON WALL -->
 
     <img
         src="logotake1.gif"
@@ -245,60 +348,80 @@ body {
 
 
     <!-- =================================================
-         SHELF OBJECTS
-         
-         These are the navigation.
-         No nav bar required.
+         SHELF NAVIGATION
+
+         PUT YOUR ACTUAL EXISTING PAGES HERE.
          ================================================= -->
 
 
-    <!-- Mewgenics -->
+    <!-- EXAMPLE:
 
     <a
-        href="mewgenics.html"
-        class="shelf-object steven"
+        href="YOUR-EXISTING-PAGE.html"
+        class="shelf-object projects-object"
     >
 
         <img
-            src="Imgs/steven.png"
-            alt="Mewgenics"
-        >
-
-    </a>
-
-
-    <!-- Isaac -->
-
-    <a
-        href="isaac.html"
-        class="shelf-object isaac"
-    >
-
-        <img
-            src="Imgs/isaac.png"
-            alt="The Binding of Isaac"
-        >
-
-    </a>
-
-
-    <!-- Another project -->
-
-    <a
-        href="projects.html"
-        class="shelf-object computer"
-    >
-
-        <img
-            src="Imgs/computer.png"
+            src="YOUR-OBJECT.png"
             alt="Projects"
         >
 
     </a>
 
+    -->
 
-</main>
+
+</section>
+
+
+
+<!-- =====================================================
+     BELOW THE SHELF
+     ===================================================== -->
+
+<section class="below-shelf">
+
+
+    <div class="intro">
+
+        <span class="blink">
+            HTML BRAIN SLUDGE HAS ESCAPED
+        </span>
+
+        <br><br>
+
+        blah text and random shit and blinkies
+        and stamps and widgets
+
+    </div>
+
+
+
+    <!-- =================================================
+         BLINKIES / STAMPS / RANDOM WEB CRAP
+         ================================================= -->
+
+    <div class="web-garbage">
+
+
+        <!--
+            PUT YOUR EXISTING BLINKIES / STAMPS HERE.
+
+            Example:
+
+            <img src="bi.webp">
+            <img src="10.gif">
+            <img src="eatpant.png">
+
+        -->
+
+
+    </div>
+
+
+</section>
 
 
 </body>
+
 </html>
