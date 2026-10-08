@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -55,10 +56,6 @@ body {
 
     overflow: hidden;
 
-    /*
-       Cheap DVD-menu-looking background
-    */
-
     background:
         radial-gradient(
             ellipse at center,
@@ -92,6 +89,7 @@ body {
         );
 
     z-index: 1;
+
 }
 
 
@@ -124,8 +122,9 @@ body {
 
 
 /* =========================================================
-   DVD LOGO / TITLE
+   DVD LOGO
    ========================================================= */
+
 .logo {
 
     position: absolute;
@@ -145,12 +144,16 @@ body {
 
 }
 
-   @keyframes logoSludge {
+
+@keyframes logoSludge {
 
     0%,
     100% {
 
-        transform: translateX(-50%) translateY(0px) rotate(-1deg);
+        transform:
+            translateX(-50%)
+            translateY(0px)
+            rotate(-1deg);
 
         filter:
             drop-shadow(0 0 5px rgba(255,255,255,0.20))
@@ -160,7 +163,10 @@ body {
 
     50% {
 
-        transform: translateX(-50%) translateY(-6px) rotate(1deg);
+        transform:
+            translateX(-50%)
+            translateY(-6px)
+            rotate(1deg);
 
         filter:
             drop-shadow(0 0 14px rgba(255,255,255,0.35))
@@ -169,6 +175,7 @@ body {
     }
 
 }
+
 
 /* =========================================================
    GIANT FAKE DVD DISC
@@ -185,10 +192,6 @@ body {
     top: 18%;
 
     border-radius: 50%;
-
-    /*
-       Fake reflective DVD
-    */
 
     background:
         conic-gradient(
@@ -213,8 +216,6 @@ body {
 
 }
 
-
-/* DVD center hole */
 
 .dvd-disc::after {
 
@@ -252,7 +253,7 @@ body {
 
     z-index: 20;
 
-    width: 360px;
+    width: 450px;
 
 }
 
@@ -261,9 +262,11 @@ body {
    MENU ITEMS
    ========================================================= */
 
-.menu a {
+.menu-item {
 
-    display: block;
+    display: flex;
+
+    align-items: center;
 
     width: fit-content;
 
@@ -288,19 +291,47 @@ body {
     text-shadow:
         3px 3px 0 #000;
 
+    cursor: pointer;
+
     transition:
-        transform 0.08s,
-        color 0.08s,
-        background 0.08s;
+        transform 0.12s,
+        color 0.12s,
+        background 0.12s;
 
 }
 
 
 /* =========================================================
-   DVD MENU HOVER / SELECTION
+   ICONS
    ========================================================= */
 
-.menu a:hover {
+.menu-icon {
+
+    display: inline-block;
+
+    width: 42px;
+
+    margin-right: 8px;
+
+    font-size: 28px;
+
+    text-align: center;
+
+    filter:
+        drop-shadow(2px 2px 0 #000);
+
+    transition:
+        transform 0.15s,
+        filter 0.15s;
+
+}
+
+
+/* =========================================================
+   HOVER EFFECT
+   ========================================================= */
+
+.menu-item:hover {
 
     color: #ffff00;
 
@@ -316,20 +347,41 @@ body {
 }
 
 
-/* Fake DVD arrow */
+.menu-item:hover .menu-icon {
 
-.menu a::before {
+    transform:
+        rotate(-8deg)
+        scale(1.25);
 
-    content: "▶ ";
-
-    color: #aaa;
+    filter:
+        drop-shadow(0 0 7px #ffff00)
+        drop-shadow(2px 2px 0 #000);
 
 }
 
 
-.menu a:hover::before {
+/* Fake DVD arrow */
+
+.menu-item::before {
+
+    content: "▶";
+
+    margin-right: 10px;
+
+    color: #888;
+
+    transition:
+        color 0.12s,
+        transform 0.12s;
+
+}
+
+
+.menu-item:hover::before {
 
     color: #ffff00;
+
+    transform: translateX(3px);
 
 }
 
@@ -354,6 +406,275 @@ body {
 
     text-shadow:
         2px 2px 0 #000;
+
+}
+
+
+/* =========================================================
+   PROJECT INFORMATION WINDOW
+   ========================================================= */
+
+dialog.project-window {
+
+    width: min(650px, 90vw);
+
+    padding: 0;
+
+    border: 4px solid #777;
+
+    background:
+        linear-gradient(
+            180deg,
+            #303030,
+            #111111
+        );
+
+    color: white;
+
+    box-shadow:
+        12px 12px 0 #000,
+        0 0 30px rgba(0,0,0,0.8);
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    z-index: 100;
+
+}
+
+
+dialog.project-window::backdrop {
+
+    background:
+        rgba(0,0,0,0.72);
+
+    backdrop-filter:
+        blur(2px);
+
+}
+
+
+/* =========================================================
+   WINDOW TITLE BAR
+   ========================================================= */
+
+.window-titlebar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    padding: 9px 12px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #555,
+            #222
+        );
+
+    border-bottom: 3px solid #111;
+
+    font-family: monospace;
+
+    font-size: 16px;
+
+    font-weight: bold;
+
+    letter-spacing: 1px;
+
+}
+
+
+.window-x {
+
+    color: white;
+
+    background: #8b0000;
+
+    border: 2px solid #aaa;
+
+    width: 25px;
+    height: 25px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+}
+
+
+.window-x:hover {
+
+    background: red;
+
+}
+
+
+/* =========================================================
+   WINDOW CONTENT
+   ========================================================= */
+
+.window-content {
+
+    padding: 24px;
+
+}
+
+
+.window-icon {
+
+    float: left;
+
+    font-size: 58px;
+
+    margin-right: 20px;
+
+    filter:
+        drop-shadow(3px 3px 0 #000);
+
+}
+
+
+.window-content h2 {
+
+    margin-top: 5px;
+
+    margin-bottom: 10px;
+
+    color: #ffff00;
+
+    font-size: 25px;
+
+    text-shadow:
+        3px 3px 0 #000;
+
+}
+
+
+.window-description {
+
+    clear: both;
+
+    padding-top: 20px;
+
+    color: #ddd;
+
+    line-height: 1.5;
+
+    font-size: 16px;
+
+}
+
+
+/* =========================================================
+   STATUS BOX
+   ========================================================= */
+
+.status-box {
+
+    margin-top: 20px;
+
+    padding: 12px;
+
+    background: #080808;
+
+    border: 2px solid #444;
+
+    font-family: monospace;
+
+}
+
+
+.status-label {
+
+    color: #888;
+
+    font-size: 11px;
+
+}
+
+
+.status-value {
+
+    margin-top: 5px;
+
+    color: #00ff66;
+
+    font-weight: bold;
+
+}
+
+
+.file-location {
+
+    margin-top: 12px;
+
+    color: #aaa;
+
+    font-size: 12px;
+
+}
+
+
+/* =========================================================
+   WINDOW BUTTONS
+   ========================================================= */
+
+.window-buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 20px;
+
+    margin-top: 25px;
+
+}
+
+
+.dvd-button {
+
+    min-width: 120px;
+
+    padding: 10px 20px;
+
+    border: 3px outset #888;
+
+    background:
+        linear-gradient(
+            180deg,
+            #555,
+            #222
+        );
+
+    color: white;
+
+    font-family: monospace;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    text-transform: uppercase;
+
+}
+
+
+.dvd-button:hover {
+
+    color: #ffff00;
+
+    border-color: #ffff00;
+
+}
+
+
+.dvd-button:active {
+
+    border-style: inset;
 
 }
 
@@ -415,7 +736,7 @@ body {
 
 
 /* =========================================================
-   FAKE COPYRIGHT TEXT
+   COPYRIGHT
    ========================================================= */
 
 .copyright {
@@ -437,7 +758,7 @@ body {
 
 
 /* =========================================================
-   RANDOM DVD WARNING
+   WARNING
    ========================================================= */
 
 .warning {
@@ -461,7 +782,7 @@ body {
 
 
 /* =========================================================
-   DVD MENU FOOTER
+   DVD INFO
    ========================================================= */
 
 .disc-info {
@@ -489,7 +810,7 @@ body {
 
 
 /* =========================================================
-   LITTLE "LOADING" LIGHT
+   LITTLE LOADING LIGHT
    ========================================================= */
 
 .led {
@@ -557,7 +878,7 @@ body {
     }
 
 
-    .menu a {
+    .menu-item {
 
         font-size: 20px;
 
@@ -581,134 +902,506 @@ body {
 
     }
 
+
+    .disc-info {
+
+        display: none;
+
+    }
+
 }
 
+
+/* =========================================================
+   REDUCE MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .logo {
+
+        animation: none;
+
+    }
+
+}
+
+
+/* =========================================================
+   END CSS
+   ========================================================= */
 
 </style>
 
 </head>
 
-
 <body>
-
-
-<!-- =========================================================
-     DVD MENU
-     ========================================================= -->
 
 <main class="dvd-screen">
 
+```
+<!-- =====================================================
+     BRAIN SLUDGE LOGO
+     ===================================================== -->
 
-    <!-- =====================================================
-         YOUR ACTUAL BRAIN SLUDGE LOGO
-         ===================================================== -->
+<img
+    src="logotake1.gif"
+    class="logo"
+    alt="MatthewMewgenicsPro1s Brain Sludge"
+>
 
-    <img
-        src="logotake1.gif"
-        class="logo"
-        alt="MatthewMewgenicsPro1s Brain Sludge"
+
+<!-- =====================================================
+     FAKE DVD DISC
+     ===================================================== -->
+
+<div class="dvd-disc"></div>
+
+
+<!-- =====================================================
+     MAIN MENU
+     ===================================================== -->
+
+<nav class="menu">
+
+    <div class="menu-title">
+        MAIN MENU
+    </div>
+
+
+    <!-- KRACKERKIDS -->
+
+    <div
+        class="menu-item"
+        onclick="openProject('krackerkids')"
     >
 
+        <span class="menu-icon">🖥️</span>
 
-    <!-- =====================================================
-         FAKE DVD DISC
-         ===================================================== -->
-
-    <div class="dvd-disc"></div>
-
-
-    <!-- =====================================================
-         MENU
-         ===================================================== -->
-
-    <nav class="menu">
-
-        <div class="menu-title">
-            MAIN MENU
-        </div>
-
-
-        <!-- REAL EXISTING PAGE -->
-
-        <a href="Neocities/index1.html">
+        <span>
             KrackerKids Awful Oddities
-        </a>
+        </span>
+
+    </div>
 
 
-        <!-- REAL EXISTING PAGE -->
+    <!-- KRACKPHONE -->
 
-        <a href="Neocities/krackphone.html">
+    <div
+        class="menu-item"
+        onclick="openProject('krackphone')"
+    >
+
+        <span class="menu-icon">📞</span>
+
+        <span>
             KrackPhone
-        </a>
-
-
-        <!-- For now, these are just placeholders -->
-        <!-- until we decide what existing pages
-             should actually go here -->
-
-        <a href="#extras">
-            Special Features
-        </a>
-
-
-        <a href="#credits">
-            Credits
-        </a>
-
-    </nav>
-
-
-    <!-- =====================================================
-         LITTLE DVD INFO
-         ===================================================== -->
-
-    <div class="disc-info">
-
-        DVD VIDEO • HTML BRAIN SLUDGE • REGION ??? • 2006
+        </span>
 
     </div>
 
 
-    <!-- =====================================================
-         FAKE WARNING
-         ===================================================== -->
+    <!-- =================================================
+         DO NOT ADD FAKE PAGES HERE YET
+         ================================================= -->
 
-    <div class="warning">
+</nav>
 
-        WARNING: THIS DISC MAY CONTAIN<br>
-        UNAUTHORIZED HTML
+
+<!-- =====================================================
+     PROJECT WINDOW
+     ===================================================== -->
+
+<dialog
+    id="projectWindow"
+    class="project-window"
+>
+
+    <div class="window-titlebar">
+
+        <span id="windowTitle">
+            PROJECT INFORMATION
+        </span>
+
+        <button
+            class="window-x"
+            onclick="closeProject()"
+        >
+            X
+        </button>
 
     </div>
 
 
-    <!-- =====================================================
-         FAKE DVD PLAYER BAR
-         ===================================================== -->
+    <div class="window-content">
 
-    <div class="dvd-bar">
-
-        <div class="dvd-video">
-            DVD VIDEO
+        <div
+            id="windowIcon"
+            class="window-icon"
+        >
+            🖥️
         </div>
 
 
-        <div class="copyright">
+        <h2 id="projectName">
+            PROJECT
+        </h2>
 
-            © MATTHEWMEWGENICSPRO1<br>
-            ALL WRONGS RESERVED
+
+        <div
+            id="projectDescription"
+            class="window-description"
+        >
+            Description goes here.
+        </div>
+
+
+        <div class="status-box">
+
+            <div class="status-label">
+                CURRENT STATUS
+            </div>
+
+            <div
+                id="projectStatus"
+                class="status-value"
+            >
+                STATUS
+            </div>
+
+
+            <div
+                id="projectFile"
+                class="file-location"
+            >
+                FILE: unknown
+            </div>
+
+        </div>
+
+
+        <div class="window-buttons">
+
+            <button
+                class="dvd-button"
+                onclick="openCurrentProject()"
+            >
+                ▶ OPEN
+            </button>
+
+
+            <button
+                class="dvd-button"
+                onclick="closeProject()"
+            >
+                ✕ EXIT
+            </button>
 
         </div>
 
     </div>
 
+</dialog>
 
-    <!-- FAKE DVD PLAYER LIGHT -->
 
-    <div class="led"></div>
+<!-- =====================================================
+     AUDIO
+     ===================================================== -->
 
+<audio
+    id="projectMusic"
+    loop
+></audio>
+
+
+<!-- =====================================================
+     DVD INFO
+     ===================================================== -->
+
+<div class="disc-info">
+
+    DVD VIDEO • HTML BRAIN SLUDGE • REGION ??? • 2006
+
+</div>
+
+
+<!-- =====================================================
+     WARNING
+     ===================================================== -->
+
+<div class="warning">
+
+    WARNING: THIS DISC MAY CONTAIN<br>
+    UNAUTHORIZED HTML
+
+</div>
+
+
+<!-- =====================================================
+     DVD PLAYER BAR
+     ===================================================== -->
+
+<div class="dvd-bar">
+
+    <div class="dvd-video">
+        DVD VIDEO
+    </div>
+
+
+    <div class="copyright">
+
+        © MATTHEWMEWGENICSPRO1<br>
+        ALL WRONGS RESERVED
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     FAKE DVD PLAYER LIGHT
+     ===================================================== -->
+
+<div class="led"></div>
+```
 
 </main>
 
+<script>
+
+/* =========================================================
+   PROJECT DATABASE
+   ========================================================= */
+
+const projects = {
+
+    krackerkids: {
+
+        title: "KRACKERKIDS AWFUL ODDITIES",
+
+        icon: "🖥️",
+
+        description:
+            "The original KrackerKids Awful Oddities website. " +
+            "A collection of completely unnecessary HTML garbage, " +
+            "weird experiments, strange objects and other internet nonsense.",
+
+        status:
+            "CURRENTLY WORKING ON IT",
+
+        file:
+            "Neocities/index1.html",
+
+        music:
+            "Neocities/music/krackerkids.mp3"
+
+    },
+
+
+    krackphone: {
+
+        title: "KRACKPHONE",
+
+        icon: "📞",
+
+        description:
+            "KrackPhone. A completely unnecessary telephone-themed " +
+            "piece of HTML Brain Sludge.",
+
+        status:
+            "MAY RETURN TO IT",
+
+        file:
+            "Neocities/krackphone.html",
+
+        music:
+            "Neocities/music/krackphone.mp3"
+
+    }
+
+};
+
+
+/* =========================================================
+   CURRENT PROJECT
+   ========================================================= */
+
+let currentProject = null;
+
+
+/* =========================================================
+   ELEMENTS
+   ========================================================= */
+
+const projectWindow =
+    document.getElementById("projectWindow");
+
+const projectMusic =
+    document.getElementById("projectMusic");
+
+const windowTitle =
+    document.getElementById("windowTitle");
+
+const windowIcon =
+    document.getElementById("windowIcon");
+
+const projectName =
+    document.getElementById("projectName");
+
+const projectDescription =
+    document.getElementById("projectDescription");
+
+const projectStatus =
+    document.getElementById("projectStatus");
+
+const projectFile =
+    document.getElementById("projectFile");
+
+
+/* =========================================================
+   OPEN PROJECT WINDOW
+   ========================================================= */
+
+function openProject(projectID) {
+
+    const project = projects[projectID];
+
+    if (!project) {
+        return;
+    }
+
+    currentProject = project;
+
+
+    /* Update window */
+
+    windowTitle.textContent =
+        project.title;
+
+    windowIcon.textContent =
+        project.icon;
+
+    projectName.textContent =
+        project.title;
+
+    projectDescription.textContent =
+        project.description;
+
+    projectStatus.textContent =
+        project.status;
+
+    projectFile.textContent =
+        "FILE: " + project.file;
+
+
+    /* =====================================================
+       START PROJECT MUSIC
+       ===================================================== */
+
+    projectMusic.pause();
+
+    projectMusic.currentTime = 0;
+
+    projectMusic.src =
+        project.music;
+
+
+    /*
+       Browsers normally allow audio started from
+       a user click, which is exactly what this is.
+    */
+
+    projectMusic.play().catch(() => {
+
+        console.log(
+            "Music could not autoplay."
+        );
+
+    });
+
+
+    /* =====================================================
+       OPEN THE DVD WINDOW
+       ===================================================== */
+
+    projectWindow.showModal();
+
+}
+
+
+/* =========================================================
+   OPEN PROJECT
+   ========================================================= */
+
+function openCurrentProject() {
+
+    if (!currentProject) {
+        return;
+    }
+
+
+    /* Stop music before leaving */
+
+    projectMusic.pause();
+
+    projectMusic.currentTime = 0;
+
+
+    /* Go to the actual existing HTML page */
+
+    window.location.href =
+        currentProject.file;
+
+}
+
+
+/* =========================================================
+   CLOSE PROJECT
+   ========================================================= */
+
+function closeProject() {
+
+    projectMusic.pause();
+
+    projectMusic.currentTime = 0;
+
+    projectWindow.close();
+
+}
+
+
+/* =========================================================
+   ESCAPE KEY
+   ========================================================= */
+
+projectWindow.addEventListener(
+    "close",
+    () => {
+
+        projectMusic.pause();
+
+        projectMusic.currentTime = 0;
+
+    }
+);
+
+
+/* =========================================================
+   PREVENT MUSIC FROM CONTINUING AFTER ESC
+   ========================================================= */
+
+projectWindow.addEventListener(
+    "cancel",
+    () => {
+
+        projectMusic.pause();
+
+        projectMusic.currentTime = 0;
+
+    }
+);
+
+</script>
 
 </body>
 
