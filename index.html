@@ -307,15 +307,14 @@ body {
 
 .menu-icon {
 
-    display: inline-block;
+    display: block;
 
     width: 42px;
+    height: 42px;
 
     margin-right: 8px;
 
-    font-size: 28px;
-
-    text-align: center;
+    object-fit: contain;
 
     filter:
         drop-shadow(2px 2px 0 #000);
@@ -325,7 +324,6 @@ body {
         filter 0.15s;
 
 }
-
 
 /* =========================================================
    HOVER EFFECT
@@ -976,7 +974,11 @@ dialog.project-window::backdrop {
         onclick="openProject('krackerkids')"
     >
 
-        <span class="menu-icon">🖥️</span>
+       <img
+    class="menu-icon"
+    src="Neocities/Imgs/eggyd.png"
+    alt="KrackerKids Awful Oddities"
+>
 
         <span>
             KrackerKids Awful Oddities
@@ -992,7 +994,11 @@ dialog.project-window::backdrop {
         onclick="openProject('krackphone')"
     >
 
-        <span class="menu-icon">📞</span>
+      <img
+    class="menu-icon"
+    src="Neocities/Imgs/ice.png"
+    alt="KrackPhone"
+>
 
         <span>
             KrackPhone
@@ -1179,7 +1185,7 @@ const projects = {
 
         title: "KRACKERKIDS AWFUL ODDITIES",
 
-        icon: "🖥️",
+        icon: "",
 
         description:
             "The original KrackerKids Awful Oddities website. " +
@@ -1187,13 +1193,13 @@ const projects = {
             "weird experiments, strange objects and other internet nonsense.",
 
         status:
-            "CURRENTLY WORKING ON IT",
+            "PROJECT IS DEAD RIGHT NOW.",
 
         file:
             "Neocities/index1.html",
 
         music:
-            "Neocities/music/krackerkids.mp3"
+            "Music/wantugone.mp4"
 
     },
 
@@ -1202,20 +1208,20 @@ const projects = {
 
         title: "KRACKPHONE",
 
-        icon: "📞",
+        icon: "",
 
         description:
             "KrackPhone. A completely unnecessary telephone-themed " +
             "piece of HTML Brain Sludge.",
 
         status:
-            "MAY RETURN TO IT",
+            "STILL ALIVE.",
 
         file:
             "Neocities/krackphone.html",
 
         music:
-            "Neocities/music/krackphone.mp3"
+            "Music/lemdema"
 
     }
 
