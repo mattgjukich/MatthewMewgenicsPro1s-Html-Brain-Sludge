@@ -1006,10 +1006,19 @@ dialog.project-window::backdrop {
 
     </div>
 
+<div
+    class="menu-item"
+    onclick="openProject('blog')"
+>
+    <img
+        class="menu-icon"
+        src="Blog/downdoot.png"
+        alt="Blog"
+    >
 
-    <!-- =================================================
-         DO NOT ADD FAKE PAGES HERE YET
-         ================================================= -->
+    <span>Directors Commentary</span>
+</div>
+    
 
 </nav>
 
@@ -1223,8 +1232,28 @@ const projects = {
         music:
             "Music/lemdema.mp4"
 
-    }
+    },
+blog: {
 
+    title: "DIRECTORS COMMENTARY",
+
+    icon: "",
+
+    description:
+        "A shitty little blog documenting events, games, " +
+        "purchases, projects and whatever else happens when i feel like it.",
+
+    status:
+        "CURRENTLY WORKING ON IT",
+
+    file:
+        "Blog/Blog.html",
+
+    music:
+        "Music/lsdhappy.mp4"
+
+}
+   
 };
 
 
