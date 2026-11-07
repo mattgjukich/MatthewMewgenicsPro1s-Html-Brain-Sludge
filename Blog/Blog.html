@@ -1,12 +1,363 @@
+
 <!DOCTYPE html>
-<html lang="">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <header></header>
-    <main></main>
-    <footer></footer>
-  </body>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Directors Commentary - A Shitty Blog</title>
+
+<link rel="icon" href="Neocities/Imgs/eggyd.png">
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 30px 15px;
+    background: #050505;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/* BLOG HEADER */
+
+.blog-header {
+    text-align: center;
+    max-width: 1100px;
+    margin: 0 auto 35px;
+}
+
+.blog-logo {
+    width: min(100%, 1000px);
+    height: auto;
+    filter: drop-shadow(0 0 8px lime);
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 15px;
+    color: lime;
+    font-family: monospace;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: yellow;
+    text-decoration: underline;
+}
+
+/* BLOG POSTS */
+
+.blog-container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.post {
+    margin-bottom: 45px;
+    padding: 25px;
+
+    background: #111;
+    border: 2px solid #333;
+
+    box-shadow: 7px 7px 0 #000;
+}
+
+.post-date {
+    color: lime;
+    font-family: monospace;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.post h2 {
+    margin: 10px 0 18px;
+    color: white;
+    font-size: clamp(22px, 4vw, 32px);
+    text-shadow: 3px 3px #333;
+}
+
+.post-content {
+    color: #ddd;
+    line-height: 1.7;
+    font-size: 16px;
+}
+
+.post-image {
+    display: block;
+    max-width: 100%;
+    max-height: 550px;
+    margin: 20px auto;
+    object-fit: contain;
+    border: 2px solid #444;
+}
+
+/* REACTIONS */
+
+.reactions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px dashed #555;
+}
+
+.reaction {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+
+    padding: 8px 12px;
+
+    color: white;
+    background: #222;
+    border: 2px outset #666;
+
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: transform 0.15s, background 0.15s;
+}
+
+.reaction:hover {
+    transform: scale(1.12) rotate(-2deg);
+    background: #444;
+}
+
+.reaction:active {
+    border-style: inset;
+    transform: scale(0.95);
+}
+
+.reaction img {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+}
+
+.reaction-count {
+    font-family: monospace;
+    color: yellow;
+}
+
+/* FOOTER */
+
+.blog-footer {
+    margin: 50px auto 20px;
+    text-align: center;
+    color: #555;
+    font-family: monospace;
+    font-size: 12px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="blog-header">
+
+    <img
+        src="Blog/Bloglogo.png"
+        class="blog-logo"
+        alt="Directors Commentary - A Shitty Blog"
+    >
+
+    <br>
+
+    <a class="back-link" href="index.html">
+        ◀ RETURN TO DVD MENU
+    </a>
+
+</header>
+
+
+<main class="blog-container">
+
+    <!-- =================================================
+         NOVEMBER 7, 2026
+         NEWEST POST
+         ================================================= -->
+
+    <article class="post" data-post="nov7">
+
+        <div class="post-date">
+            NOVEMBER 7, 2026
+        </div>
+
+        <h2>Creating This Blog & Buying Dying Light</h2>
+
+        <div class="post-content">
+
+            <p>
+                Today is the day were i have finally created this stupid blog thing that i have wanted to do since the neocities days and for the most part its complete, also i bought Dying Light, its
+              pretty fun NGL.
+            </p>
+
+            <p>
+                Add as much text as you want. You can use multiple
+                paragraphs, images, links, and whatever else.
+            </p>
+
+            <img
+                class="post-image"
+                src="Blog/nov7-26.png"
+                alt="November 7 blog image"
+            >
+
+        </div>
+
+        <div class="reactions">
+
+            <button class="reaction" data-reaction="slendy">
+
+                <img
+                    src="Blog/downdoot.png"
+                    alt="Slendytubbies reaction"
+                >
+
+                <span class="reaction-count">0</span>
+
+            </button>
+
+
+            <button class="reaction" data-reaction="pringles">
+
+                <img
+                    src="Blog/updoot.png"
+                    alt="BBQ Pringles reaction"
+                >
+
+                <span class="reaction-count">0</span>
+
+            </button>
+
+        </div>
+
+    </article>
+
+
+    <!-- =================================================
+         NOVEMBER 5, 2026
+         OLDER POST
+         ================================================= -->
+
+    <article class="post" data-post="nov5">
+
+        <div class="post-date">
+            NOVEMBER 5, 2026
+        </div>
+
+        <h2>How I Got Garfield Kart</h2>
+
+        <div class="post-content">
+
+            <p>
+                I started making this blog on November 5th but then i got Garfield kart Furious racing for cheap
+              and that sucked up my day.
+            </p>
+
+            <p>
+                This is an older post, so it goes underneath
+                the November 7 entry.
+            </p>
+
+            <img
+                class="post-image"
+                src="Blog/nov5-26.jpg"
+                alt="November 5 blog image"
+            >
+
+        </div>
+
+        <div class="reactions">
+
+            <button class="reaction" data-reaction="slendy">
+
+                <img
+                    src="Blog/downdoot.png"
+                    alt="Slendytubbies reaction"
+                >
+
+                <span class="reaction-count">0</span>
+
+            </button>
+
+
+            <button class="reaction" data-reaction="pringles">
+
+                <img
+                    src="Blog/updoot.png"
+                    alt="BBQ Pringles reaction"
+                >
+
+                <span class="reaction-count">0</span>
+
+            </button>
+
+        </div>
+
+    </article>
+
+</main>
+
+
+<footer class="blog-footer">
+
+    DIRECTORS COMMENTARY • A SHITTY BLOG<br>
+    ALL WRONGS RESERVED
+
+</footer>
+
+
+<script>
+
+/* =====================================================
+   REACTION COUNTERS
+   Saved locally in the visitor's browser.
+   ===================================================== */
+
+document.querySelectorAll(".post").forEach(post => {
+
+    const postID = post.dataset.post;
+
+    post.querySelectorAll(".reaction").forEach(button => {
+
+        const reactionType = button.dataset.reaction;
+
+        const storageKey =
+            "brainSludge_" + postID + "_" + reactionType;
+
+        const countDisplay =
+            button.querySelector(".reaction-count");
+
+        // Load saved count
+        let count = Number(localStorage.getItem(storageKey)) || 0;
+
+        countDisplay.textContent = count;
+
+        // Clicking adds one reaction
+        button.addEventListener("click", () => {
+
+            count++;
+
+            localStorage.setItem(storageKey, count);
+
+            countDisplay.textContent = count;
+
+        });
+
+    });
+
+});
+
+</script>
+
+</body>
 </html>
