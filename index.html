@@ -1019,7 +1019,14 @@ dialog.project-window::backdrop {
     <span>Directors Commentary</span>
 </div>
     
+<div class="menu-item" onclick="openButtonWindow()">
 
+    <span class="menu-icon">88×31</span>
+
+    <span>GET OUR BUTTON</span>
+
+</div>
+   
 </nav>
 
 
@@ -1116,7 +1123,65 @@ dialog.project-window::backdrop {
 
     </div>
 
+<dialog id="buttonWindow" class="project-window">
+
+    <div class="window-titlebar">
+
+        <span>GET OUR BUTTON</span>
+
+        <button class="window-x" onclick="closeButtonWindow()">
+            X
+        </button>
+
+    </div>
+
+    <div class="window-content">
+
+        <h2>TAKE OUR BUTTON!</h2>
+
+        <p>
+            Like HTML Brain Sludge?
+            Put our button on your own website!
+        </p>
+
+        <div style="text-align:center; margin:25px;">
+
+            <img
+                src="Neocities/Imgs/yyy.gif"
+                width="88"
+                height="31"
+                alt="HTML Brain Sludge website button"
+            >
+
+        </div>
+
+        <p>HTML CODE:</p>
+
+        <textarea
+            id="buttonCode"
+            readonly
+            class="button-code"
+        ><a href="YOUR-SITE-URL"><img src="YOUR-SITE-URL/Neocities/Imgs/yyy.gif" width="88" height="31" alt="HTML Brain Sludge"></a></textarea>
+
+        <div class="window-buttons">
+
+            <button class="dvd-button" onclick="copyButtonCode()">
+                COPY HTML
+            </button>
+
+            <button class="dvd-button" onclick="closeButtonWindow()">
+                EXIT
+            </button>
+
+        </div>
+
+        <p id="copyMessage" style="text-align:center;color:lime;">
+        </p>
+
+    </div>
+
 </dialog>
+   
 
 
 <!-- =====================================================
@@ -1436,6 +1501,47 @@ projectWindow.addEventListener(
     }
 );
 
+/* =========================================
+   WEBSITE BUTTON WINDOW
+   ========================================= */
+
+const buttonWindow = document.getElementById("buttonWindow");
+
+function openButtonWindow() {
+    buttonWindow.showModal();
+}
+
+function closeButtonWindow() {
+    buttonWindow.close();
+}
+
+
+/* =========================================
+   COPY BUTTON HTML
+   ========================================= */
+
+function copyButtonCode() {
+
+    const code = document.getElementById("buttonCode");
+
+    navigator.clipboard.writeText(code.value)
+        .then(() => {
+
+            document.getElementById("copyMessage").textContent =
+                "BUTTON CODE COPIED!";
+
+        })
+        .catch(() => {
+
+            code.select();
+
+            document.getElementById("copyMessage").textContent =
+                "Press CTRL+C to copy!";
+
+        });
+
+}
+   
 </script>
 
 </body>
